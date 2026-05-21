@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SeriFusion - Crop Cycle Calendar</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="index-tailwind.js"></script>
+    <link rel="stylesheet" href="index.css">
+    <style>
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: 1.45rem;
+            top: 3rem;
+            bottom: -1rem;
+            width: 2px;
+            background-color: #f3f4f6; /* gray-100 */
+        }
+        .timeline-item:last-child::before {
+            display: none;
+        }
+    </style>
+</head>
+<body class="bg-cream font-sans antialiased text-earthy min-h-screen flex flex-col">
+    
+    <!-- Navigation -->
+    <nav class="bg-white border-b border-gray-200 sticky top-0 z-50 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16 items-center">
+                <div class="flex items-center space-x-3">
+                    <img src="logo.png" alt="SeriFusion Logo" class="w-10 h-10 object-contain rounded-full">
+                    <span class="font-bold text-xl tracking-tight text-mulberry-dark">Crop Cycle Calendar</span>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <span class="px-3 py-1 bg-green-100 text-green-700 font-bold rounded-full text-xs flex items-center gap-1">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                        Smart Scheduler
+                    </span>
+                    <a href="manager-home.html" class="text-sm font-medium text-earthy hover:text-mulberry transition-colors">Back to Dashboard</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-4 py-8 flex-1 w-full">
+        
+        <header class="mb-8 flex justify-between items-end flex-wrap gap-4">
+            <div>
+                <h1 class="text-3xl font-extrabold text-mulberry-dark">Crop Cycle Calendar & Scheduler</h1>
+                <p class="text-earthy/80 mt-2 max-w-3xl">Auto-generate a precise silkworm rearing calendar based on your region, season, and selected variety. Reduces missed operations by 70% with proactive push notifications.</p>
+            </div>
+            <div class="bg-white px-4 py-3 rounded-xl shadow-sm border border-gray-100 flex items-center gap-3">
+                <div class="w-10 h-10 rounded-full bg-mulberry/10 flex items-center justify-center text-mulberry">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"></path></svg>
+                </div>
+                <div>
+                    <p class="text-xs font-bold text-gray-500 uppercase">Push Notifications</p>
+                    <label class="relative inline-flex items-center cursor-pointer mt-1">
+                        <input type="checkbox" id="pushToggle" class="sr-only peer" checked>
+                        <div class="w-9 h-5 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-green-500"></div>
+                        <span class="ml-2 text-sm font-bold text-gray-700" id="pushStatus">Enabled</span>
+                    </label>
+                </div>
+            </div>
+        </header>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+            
+            <!-- Left Panel: Input Form -->
+            <div class="lg:col-span-4">
+                <div class="glass-card bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
+                    <h2 class="text-xl font-bold text-mulberry-dark mb-6 border-b border-gray-100 pb-2">Configuration</h2>
+                    
+                    <form id="calendarForm" class="space-y-5" onsubmit="event.preventDefault(); generateCalendar();">
+                        
+                        <div class="space-y-2">
+                            <label class="block text-xs font-bold text-gray-500 uppercase">Start Date (Brushing)</label>
+                            <input type="date" id="startDate" class="input-field w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-mulberry text-gray-700 font-medium" required>
+                        </div>
+
+                        <div class="space-y-2">
+                            <label class="block text-xs font-bold text-gray-500 uppercase">Region</label>
+                            <select id="region" class="input-field w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-mulberry text-gray-700 font-medium">
+                                <option value="south">South India (Tropical)</option>
+                                <option value="north">North India (Sub-tropical)</option>
+                                <option value="east">East India (Humid)</option>
+                            </select>
+                        </div>
+
+                        <div class="space-y-2">
+                            <label class="block text-xs font-bold text-gray-500 uppercase">Season</label>
+                            <select id="season" class="input-field w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-mulberry text-gray-700 font-medium">
+                                <option value="spring" selected>Spring / Favorable</option>
+                                <option value="summer">Summer / Adverse</option>
+                                <option value="autumn">Autumn</option>
+                            </select>
+                        </div>
+
+                        <div class="space-y-2">
+                            <label class="block text-xs font-bold text-gray-500 uppercase">Silkworm Variety</label>
+                            <select id="variety" class="input-field w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-mulberry text-gray-700 font-medium">
+                                <option value="bivoltine" selected>Bivoltine (High Yield, ~28 Days)</option>
+                                <option value="multivoltine">Multivoltine (~24 Days)</option>
+                                <option value="crossbreed">Crossbreed (~26 Days)</option>
+                            </select>
+                        </div>
+
+                        <button type="submit" class="w-full py-4 mt-4 bg-mulberry text-white font-bold rounded-xl shadow-md hover:bg-mulberry-dark transform hover:-translate-y-1 transition-all flex justify-center items-center gap-2">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                            Generate Schedule
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Right Panel: Calendar Dashboard -->
+            <div class="lg:col-span-8 space-y-6 hidden" id="resultsPanel">
+                
+                <!-- KPI Grid -->
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+                    <div class="glass-card bg-white p-4 rounded-xl shadow-sm border-l-4 border-blue-500">
+                        <p class="text-[10px] font-bold text-gray-500 uppercase tracking-widest">Total Duration</p>
+                        <h2 class="text-2xl font-extrabold text-mulberry-dark mt-1" id="stat-duration">0 Days</h2>
+                    </div>
+                    <div class="glass-card bg-white p-4 rounded-xl shadow-sm border-l-4 border-green-500">
+                        <p class="text-[10px] font-bold text-gray-500 uppercase tracking-widest">Feeding Days</p>
+                        <h2 class="text-2xl font-extrabold text-mulberry-dark mt-1" id="stat-feeding">0</h2>
+                    </div>
+                    <div class="glass-card bg-white p-4 rounded-xl shadow-sm border-l-4 border-orange-500">
+                        <p class="text-[10px] font-bold text-gray-500 uppercase tracking-widest">Mounting Date</p>
+                        <h2 class="text-xl font-bold text-mulberry-dark mt-1" id="stat-mounting">-</h2>
+                    </div>
+                    <div class="glass-card bg-white p-4 rounded-xl shadow-sm border-l-4 border-silkgold">
+                        <p class="text-[10px] font-bold text-gray-500 uppercase tracking-widest">Harvest Date</p>
+                        <h2 class="text-xl font-bold text-mulberry-dark mt-1" id="stat-harvest">-</h2>
+                    </div>
+                </div>
+
+                <!-- Timeline Schedule -->
+                <div class="glass-card bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+                    <div class="px-6 py-4 border-b border-gray-100 bg-gray-50 flex justify-between items-center">
+                        <h3 class="text-lg font-bold text-gray-800">Operational Timeline</h3>
+                        <span class="text-xs font-bold bg-green-100 text-green-700 px-2 py-1 rounded-md" id="schedule-status">Active</span>
+                    </div>
+                    <div class="p-6 relative" id="timeline-container">
+                        <!-- Timeline items injected here -->
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </main>
+
+    <script>
+        // Set default date to today
+        document.getElementById('startDate').valueAsDate = new Date();
+
+        // Push Toggle Logic
+        document.getElementById('pushToggle').addEventListener('change', function(e) {
+            document.getElementById('pushStatus').innerText = e.target.checked ? "Enabled" : "Disabled";
+            if(e.target.checked) {
+                document.getElementById('pushStatus').classList.replace('text-gray-400', 'text-gray-700');
+            } else {
+                document.getElementById('pushStatus').classList.replace('text-gray-700', 'text-gray-400');
+            }
+            // Re-render to update notification tags
+            if(!document.getElementById('resultsPanel').classList.contains('hidden')) {
+                generateCalendar();
+            }
+        });
+
+        const timelineContainer = document.getElementById('timeline-container');
+        const resultsPanel = document.getElementById('resultsPanel');
+
+        function addDays(date, days) {
+            const result = new Date(date);
+            result.setDate(result.getDate() + days);
+            return result;
+        }
+
+        function formatDate(date) {
+            return date.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' });
+        }
+
+        function generateCalendar() {
+            const startDateStr = document.getElementById('startDate').value;
+            if (!startDateStr) return;
+
+            const startDate = new Date(startDateStr);
+            const variety = document.getElementById('variety').value;
+            const season = document.getElementById('season').value;
+            
+            // Base duration modulators
+            let durationMult = 1;
+            if (variety === 'multivoltine') durationMult = 0.85;
+            else if (variety === 'crossbreed') durationMult = 0.93;
+
+            if (season === 'summer') durationMult *= 0.95; // slightly faster in summer
+            if (season === 'autumn') durationMult *= 1.05; // slightly slower in autumn
+
+            // Define base milestones (Bivoltine)
+            const milestones = [
+                { day: -2, title: "Rearing House Disinfection", desc: "Spray 2% Bleaching Powder or Sanitech. Keep closed for 24h.", icon: "M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4", color: "text-blue-500", bg: "bg-blue-100", border: "border-blue-200" },
+                { day: 0, title: "Brushing (Hatching)", desc: "Transfer newly hatched larvae to rearing beds. Feed tender chopped leaves.", icon: "M3 21v-4m22 4v-4m-3.1-2.1c-1.4 0-2.8.2-4.1.5m-5.8 0A19.8 19.8 0 003 15m17.1 0C18.6 11 15.5 8 12 8s-6.6 3-8.1 7", color: "text-green-500", bg: "bg-green-100", border: "border-green-200" },
+                { day: 1, title: "Chawki Rearing (1st Instar)", desc: "Maintain 27-28°C and 85-90% RH. Feed 3-4 times a day.", icon: "M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z", color: "text-orange-500", bg: "bg-orange-100", border: "border-orange-200" },
+                { day: 4, title: "1st Moult", desc: "Stop feeding. Apply bed disinfectant (Vijetha). Maintain dry conditions.", icon: "M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4", color: "text-gray-500", bg: "bg-gray-100", border: "border-gray-200" },
+                { day: 5, title: "2nd Instar Rearing", desc: "Resume feeding after 95% larvae moult. Expand bed spacing.", icon: "M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z", color: "text-orange-500", bg: "bg-orange-100", border: "border-orange-200" },
+                { day: 8, title: "2nd Moult", desc: "Stop feeding. Ensure good ventilation.", icon: "M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4", color: "text-gray-500", bg: "bg-gray-100", border: "border-gray-200" },
+                { day: 9, title: "3rd Instar (Late Age Start)", desc: "Shift to shoot rearing if possible. Feed entire leaves/shoots.", icon: "M5 13l4 4L19 7", color: "text-green-500", bg: "bg-green-100", border: "border-green-200" },
+                { day: 13, title: "3rd Moult", desc: "Crucial moult. Apply bed disinfectant before resuming feed.", icon: "M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4", color: "text-gray-500", bg: "bg-gray-100", border: "border-gray-200" },
+                { day: 14, title: "4th Instar Rearing", desc: "High leaf consumption phase. Ensure 24-25°C and 70-75% RH.", icon: "M13 10V3L4 14h7v7l9-11h-7z", color: "text-yellow-600", bg: "bg-yellow-100", border: "border-yellow-200" },
+                { day: 19, title: "4th Moult", desc: "Longest moult. Do not disturb beds.", icon: "M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4", color: "text-gray-500", bg: "bg-gray-100", border: "border-gray-200" },
+                { day: 21, title: "5th Instar (Peak Feeding)", desc: "Maximum leaf consumption. Feed ad libitum 3-4 times/day.", icon: "M13 10V3L4 14h7v7l9-11h-7z", color: "text-yellow-600", bg: "bg-yellow-100", border: "border-yellow-200" },
+                { day: 27, title: "Spinning / Mounting", desc: "Larvae become translucent. Pick ripe worms and mount on Chandrikes.", icon: "M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z", color: "text-mulberry", bg: "bg-mulberry/10", border: "border-mulberry/20" },
+                { day: 33, title: "Harvesting & Sorting", desc: "Harvest cocoons on 5th/6th day of spinning. Grade and transport to market.", icon: "M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4", color: "text-silkgold", bg: "bg-silkgold/20", border: "border-silkgold/40" },
+            ];
+
+            let html = '';
+            let lastDay = 0;
+            let mountDate = null;
+            let harvestDate = null;
+            const isPushEnabled = document.getElementById('pushToggle').checked;
+
+            milestones.forEach((m, idx) => {
+                // Adjust day based on variety/season
+                let adjustedDay = m.day < 0 ? m.day : Math.round(m.day * durationMult);
+                
+                // Keep order
+                if (idx > 0 && adjustedDay < lastDay) adjustedDay = lastDay;
+                lastDay = adjustedDay;
+
+                const taskDate = addDays(startDate, adjustedDay);
+                const isPast = taskDate < new Date(new Date().setHours(0,0,0,0));
+                const isToday = taskDate.toDateString() === new Date().toDateString();
+                
+                // Track specific milestones
+                if (m.day === 27) mountDate = taskDate;
+                if (m.day === 33) harvestDate = taskDate;
+
+                let ringClass = isPast ? 'ring-2 ring-gray-200' : (isToday ? 'ring-4 ring-mulberry ring-opacity-50' : '');
+                let opacityClass = isPast ? 'opacity-50' : 'opacity-100';
+                let indicator = isToday ? '<span class="absolute -top-1 -right-1 w-3 h-3 bg-mulberry rounded-full animate-ping"></span><span class="absolute -top-1 -right-1 w-3 h-3 bg-mulberry rounded-full"></span>' : '';
+
+                html += `
+                <div class="relative flex items-start gap-4 mb-8 timeline-item ${opacityClass}">
+                    <div class="relative z-10 flex-shrink-0 w-12 h-12 rounded-full ${m.bg} ${m.border} border-2 flex items-center justify-center ${m.color} ${ringClass}">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="${m.icon}"></path></svg>
+                        ${indicator}
+                    </div>
+                    <div class="flex-1 pt-1">
+                        <div class="flex items-center gap-2 mb-1">
+                            <span class="text-xs font-bold text-gray-400 uppercase w-16">Day ${adjustedDay > 0 ? '+'+adjustedDay : adjustedDay}</span>
+                            <h4 class="font-bold text-gray-800 text-lg ${isToday ? 'text-mulberry' : ''}">${m.title}</h4>
+                        </div>
+                        <p class="text-sm text-gray-600 mb-2">${m.desc}</p>
+                        <div class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-bold bg-gray-100 text-gray-600">
+                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                            ${formatDate(taskDate)}
+                        </div>
+                        ${(!isPast && isPushEnabled) ? '<span class="ml-3 text-[10px] text-mulberry font-bold uppercase tracking-wider">🔔 Notification Scheduled</span>' : ''}
+                    </div>
+                </div>
+                `;
+            });
+
+            timelineContainer.innerHTML = html;
+            
+            // Update KPIs
+            document.getElementById('stat-duration').innerText = `${lastDay} Days`;
+            document.getElementById('stat-feeding').innerText = `${Math.round(24 * durationMult)} Days`;
+            document.getElementById('stat-mounting').innerText = mountDate ? formatDate(mountDate) : '-';
+            document.getElementById('stat-harvest').innerText = harvestDate ? formatDate(harvestDate) : '-';
+
+            // Show Panel
+            resultsPanel.classList.remove('hidden');
+        }
+    </script>
+</body>
+</html>

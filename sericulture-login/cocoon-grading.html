@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SeriFusion - AI Cocoon Grading</title>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="index-tailwind.js"></script>
+    <link rel="stylesheet" href="index.css">
+    <style>
+        .scanner-line {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(to right, transparent, #2ed573, transparent);
+            box-shadow: 0 0 15px 3px rgba(46, 213, 115, 0.5);
+            animation: scan 2s linear infinite;
+            display: none;
+            z-index: 10;
+        }
+
+        .scanning .scanner-line {
+            display: block;
+        }
+
+        .scanning img {
+            filter: grayscale(100%) contrast(150%) brightness(80%);
+            transition: filter 0.5s ease;
+        }
+
+        .scanning-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(46, 213, 115, 0.1);
+            display: none;
+            z-index: 5;
+        }
+
+        .scanning .scanning-overlay {
+            display: block;
+            animation: pulse-overlay 1s infinite alternate;
+        }
+
+        @keyframes scan {
+            0% { top: 0%; }
+            50% { top: 100%; }
+            100% { top: 0%; }
+        }
+
+        @keyframes pulse-overlay {
+            0% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
+        
+        .result-card {
+            transform: translateY(20px);
+            opacity: 0;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .result-card.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+    </style>
+</head>
+<body class="bg-cream font-sans antialiased text-earthy min-h-screen">
+    
+    <!-- Navigation -->
+    <nav class="bg-white border-b border-gray-200 sticky top-0 z-50 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16 items-center">
+                <div class="flex items-center space-x-3">
+                    <img src="logo.png" alt="SeriFusion Logo" class="w-10 h-10 object-contain rounded-full">
+                    <span class="font-bold text-xl tracking-tight text-mulberry-dark">SeriFusion AI Hub</span>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <span class="px-3 py-1 bg-purple-100 text-purple-700 font-bold rounded-full text-xs flex items-center gap-1">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                        CV Engine Online
+                    </span>
+                    <a href="manager.html" class="text-sm font-medium text-earthy hover:text-mulberry transition-colors">Back to Dashboard</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="max-w-6xl mx-auto px-4 py-8">
+        
+        <header class="mb-8">
+            <h1 class="text-3xl font-extrabold text-mulberry-dark">Computer Vision Cocoon Grading</h1>
+            <p class="text-earthy/80 mt-2 max-w-2xl">Upload a photo of your cocoon batch. Our machine learning model will assess size, shape, and defect rates to instantly calculate Renditta and estimate market value.</p>
+        </header>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            
+            <!-- Left Column: Upload & Scan -->
+            <div class="glass-card bg-white rounded-2xl shadow-sm border border-gray-100 p-6 md:p-8 flex flex-col h-full">
+                <h2 class="text-xl font-bold text-mulberry-dark mb-4 border-b border-gray-100 pb-2">Image Acquisition</h2>
+                
+                <div class="flex-1 flex flex-col items-center justify-center">
+                    <label for="cocoon-photo" id="upload-area" class="w-full aspect-video border-2 border-dashed border-mulberry/30 rounded-xl bg-gray-50 hover:bg-gray-100 transition-colors cursor-pointer flex flex-col items-center justify-center relative overflow-hidden group">
+                        
+                        <div id="upload-placeholder" class="text-center p-6 flex flex-col items-center">
+                            <div class="w-16 h-16 bg-white rounded-full shadow-sm flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                                <svg class="w-8 h-8 text-mulberry" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                            </div>
+                            <span class="text-sm font-bold text-mulberry-dark">Click to snap photo or upload batch image</span>
+                            <span class="text-xs text-gray-400 mt-2">Ensure cocoons are spread evenly and well-lit</span>
+                        </div>
+
+                        <!-- Image Preview & Scanner -->
+                        <div id="preview-container" class="absolute inset-0 hidden w-full h-full bg-black">
+                            <img id="preview-img" src="" class="w-full h-full object-contain">
+                            <div class="scanner-line"></div>
+                            <div class="scanning-overlay"></div>
+                            <!-- Bounding boxes (simulated) -->
+                            <div id="bounding-boxes" class="absolute inset-0 hidden"></div>
+                        </div>
+
+                        <input type="file" id="cocoon-photo" accept="image/*" class="hidden" onchange="startAnalysis(this)">
+                    </label>
+                </div>
+
+                <div id="processing-status" class="mt-6 text-center hidden">
+                    <p class="text-sm font-bold text-mulberry animate-pulse">Running TensorFlow Object Detection...</p>
+                    <div class="w-full bg-gray-200 rounded-full h-2 mt-2 overflow-hidden">
+                        <div id="progress-bar" class="bg-mulberry h-2 rounded-full w-0 transition-all duration-[3000ms] ease-out"></div>
+                    </div>
+                </div>
+                
+                <button id="reset-btn" onclick="resetScanner()" class="mt-6 w-full py-3 bg-gray-100 text-gray-600 font-bold rounded-xl shadow-sm hover:bg-gray-200 transition-colors hidden">
+                    Scan Another Batch
+                </button>
+            </div>
+
+            <!-- Right Column: Results Dashboard -->
+            <div class="flex flex-col gap-6">
+                
+                <!-- Main Grade Card -->
+                <div class="glass-card bg-white rounded-2xl shadow-sm border border-gray-100 p-6 md:p-8 result-card" id="res-grade">
+                    <div class="flex justify-between items-center">
+                        <div>
+                            <p class="text-sm font-bold text-gray-500 uppercase tracking-widest">Calculated Grade</p>
+                            <h2 class="text-5xl font-extrabold text-green-500 mt-2">A+</h2>
+                        </div>
+                        <div class="text-right">
+                            <p class="text-sm font-bold text-gray-500 uppercase tracking-widest">Est. Renditta</p>
+                            <h2 class="text-4xl font-extrabold text-mulberry-dark mt-2">5.8<span class="text-xl text-gray-400"> kg</span></h2>
+                            <p class="text-xs text-gray-400 mt-1">Lower is better</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Metrics Grid -->
+                <div class="grid grid-cols-2 gap-4 result-card" id="res-metrics">
+                    <div class="glass-card bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
+                        <svg class="w-6 h-6 text-blue-500 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"></path></svg>
+                        <p class="text-xs font-bold text-gray-500 uppercase">Avg Cocoon Size</p>
+                        <h3 class="text-2xl font-bold text-mulberry-dark mt-1">3.4 x 1.8 <span class="text-sm text-gray-400">cm</span></h3>
+                    </div>
+                    
+                    <div class="glass-card bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
+                        <svg class="w-6 h-6 text-orange-500 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+                        <p class="text-xs font-bold text-gray-500 uppercase">Defect Rate</p>
+                        <h3 class="text-2xl font-bold text-mulberry-dark mt-1">2.1<span class="text-sm text-gray-400">%</span></h3>
+                        <p class="text-[10px] text-gray-400 mt-1">Double: 1.5% | Stained: 0.6%</p>
+                    </div>
+                </div>
+
+                <!-- Valuation -->
+                <div class="glass-card bg-mulberry text-white rounded-2xl shadow-md p-6 md:p-8 result-card" id="res-value">
+                    <p class="text-sm font-bold text-mulberry-light uppercase tracking-widest">Recommended Market Price</p>
+                    <div class="flex items-end gap-2 mt-2">
+                        <span class="text-3xl font-bold">₹</span>
+                        <h2 class="text-5xl font-extrabold">650</h2>
+                        <span class="text-xl text-mulberry-light mb-1">/ kg</span>
+                    </div>
+                    <div class="mt-6 pt-4 border-t border-white/20 flex justify-between items-center">
+                        <span class="text-sm text-white/80">Fair pricing guaranteed by AI grading.</span>
+                        <button class="px-4 py-2 bg-white text-mulberry font-bold rounded-lg text-sm hover:bg-gray-100 transition-colors">List on Marketplace</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </main>
+
+    <script>
+        function startAnalysis(input) {
+            if (input.files && input.files[0]) {
+                const reader = new FileReader();
+                
+                reader.onload = function(e) {
+                    // UI Setup
+                    document.getElementById('upload-placeholder').classList.add('hidden');
+                    const previewContainer = document.getElementById('preview-container');
+                    const uploadArea = document.getElementById('upload-area');
+                    
+                    document.getElementById('preview-img').src = e.target.result;
+                    previewContainer.classList.remove('hidden');
+                    
+                    // Disable clicking again
+                    uploadArea.style.pointerEvents = 'none';
+
+                    // Start Scanning Animation
+                    uploadArea.classList.add('scanning');
+                    
+                    const statusDiv = document.getElementById('processing-status');
+                    statusDiv.classList.remove('hidden');
+                    
+                    // Trigger progress bar animation in next frame
+                    setTimeout(() => {
+                        document.getElementById('progress-bar').style.width = '100%';
+                    }, 50);
+
+                    // Simulate processing time
+                    setTimeout(() => {
+                        finishAnalysis();
+                    }, 3000);
+                }
+                
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        function finishAnalysis() {
+            // Stop scanning effects
+            const uploadArea = document.getElementById('upload-area');
+            uploadArea.classList.remove('scanning');
+            document.getElementById('processing-status').classList.add('hidden');
+            document.getElementById('reset-btn').classList.remove('hidden');
+
+            // Draw simulated bounding boxes
+            const boxesContainer = document.getElementById('bounding-boxes');
+            boxesContainer.classList.remove('hidden');
+            boxesContainer.innerHTML = ''; // clear old
+            
+            // Generate some random green boxes overlaying the image
+            for(let i=0; i<8; i++) {
+                const box = document.createElement('div');
+                box.className = 'absolute border-2 border-green-500 bg-green-500/20 rounded-sm shadow-[0_0_8px_rgba(34,197,94,0.6)]';
+                box.style.width = (10 + Math.random() * 15) + '%';
+                box.style.height = (15 + Math.random() * 20) + '%';
+                box.style.left = (10 + Math.random() * 70) + '%';
+                box.style.top = (10 + Math.random() * 70) + '%';
+                boxesContainer.appendChild(box);
+            }
+
+            // Animate results in
+            setTimeout(() => document.getElementById('res-grade').classList.add('show'), 100);
+            setTimeout(() => document.getElementById('res-metrics').classList.add('show'), 400);
+            setTimeout(() => document.getElementById('res-value').classList.add('show'), 700);
+        }
+
+        function resetScanner() {
+            // Hide results
+            document.getElementById('res-grade').classList.remove('show');
+            document.getElementById('res-metrics').classList.remove('show');
+            document.getElementById('res-value').classList.remove('show');
+            
+            // Reset UI
+            document.getElementById('reset-btn').classList.add('hidden');
+            document.getElementById('bounding-boxes').classList.add('hidden');
+            document.getElementById('preview-container').classList.add('hidden');
+            document.getElementById('upload-placeholder').classList.remove('hidden');
+            
+            // Reset state
+            const uploadArea = document.getElementById('upload-area');
+            uploadArea.style.pointerEvents = 'auto';
+            document.getElementById('cocoon-photo').value = '';
+            document.getElementById('progress-bar').style.width = '0%';
+        }
+    </script>
+</body>
+</html>
+
+

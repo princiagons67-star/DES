@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SeriFusion - Manager Home</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="index-tailwind.js"></script>
+    <link rel="stylesheet" href="index.css">
+</head>
+<body class="bg-cream text-earthy antialiased flex h-screen overflow-hidden bg-cream">
+
+    <!-- Sidebar -->
+    <aside class="w-72 bg-white shadow-soft flex flex-col h-full relative z-20 border-r border-gray-100">
+        <div class="p-6 flex items-center gap-3 border-b border-gray-100">
+            <img src="logo.png" alt="Logo" class="w-10 h-10 rounded-full">
+            <span class="font-bold text-xl text-mulberry-dark">SeriFusion Manager</span>
+        </div>
+        
+        <div class="px-6 py-4 overflow-y-auto flex-1">
+            <p class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">Daily Operations</p>
+            <nav class="flex flex-col gap-1">
+                <a href="manager-home.html" class="flex items-center gap-3 px-4 py-3 rounded-lg font-bold bg-mulberry/10 text-mulberry transition-colors">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg>
+                    Dashboard Home
+                </a>
+                <a href="manager.html" class="flex items-center gap-3 px-4 py-3 rounded-lg font-semibold text-gray-500 hover:bg-gray-50 hover:text-mulberry transition-colors">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path></svg>
+                    Activity Log
+                </a>
+                <a href="crop-calendar.html" class="flex items-center gap-3 px-4 py-3 rounded-lg font-semibold text-gray-500 hover:bg-gray-50 hover:text-mulberry transition-colors">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                    Crop Calendar
+                </a>
+
+                <a href="inventory-predict.html" class="flex items-center gap-3 px-4 py-3 rounded-lg font-semibold text-gray-500 hover:bg-gray-50 hover:text-mulberry transition-colors">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path></svg>
+                    Predictive Inventory
+                </a>
+
+            </nav>
+
+            <p class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-2 mt-8">Farm Intelligence</p>
+            <nav class="flex flex-col gap-1">
+                <a href="gis-mapping.html" class="flex items-center gap-3 px-4 py-3 rounded-lg font-semibold text-gray-500 hover:bg-gray-50 hover:text-mulberry transition-colors">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    GIS Mapping
+                </a>
+                <a href="cocoon-grading.html" class="flex items-center gap-3 px-4 py-3 rounded-lg font-semibold text-gray-500 hover:bg-gray-50 hover:text-mulberry transition-colors">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                    AI Grading Hub
+                </a>
+                <a href="smart-farm.html" class="flex items-center gap-3 px-4 py-3 rounded-lg font-semibold text-gray-500 hover:bg-gray-50 hover:text-mulberry transition-colors">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 002-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
+                    IoT Smart Farm
+                </a>
+                <a href="dfl-planning.html" class="flex items-center gap-3 px-4 py-3 rounded-lg font-semibold text-gray-500 hover:bg-gray-50 hover:text-mulberry transition-colors">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg>
+                    Capacity Forecasting
+                </a>
+
+
+            </nav>
+        </div>
+
+        <div class="p-6 border-t border-gray-100 bg-gray-50/50">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-full bg-mulberry text-white flex items-center justify-center font-bold">FM</div>
+                <div>
+                    <p class="text-sm font-bold text-mulberry-dark">Farm Manager</p>
+                    <a href="index.html" class="text-xs text-gray-500 hover:text-mulberry font-semibold">Logout</a>
+                </div>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="flex-1 h-full overflow-y-auto p-8 relative z-10">
+        
+        <header class="mb-8 flex justify-between items-end">
+            <div>
+                <h1 class="text-3xl font-extrabold text-mulberry-dark">Welcome Back, Manager.</h1>
+                <p class="text-earthy/70 mt-1">Here is the current status of your sericulture operations.</p>
+            </div>
+            <div class="text-sm font-bold bg-white px-4 py-2 rounded-lg shadow-sm border border-gray-100 flex items-center gap-2">
+                <span class="w-2 h-2 rounded-full bg-green-500"></span>
+                Active Cycle: <span class="text-mulberry">4th Instar</span>
+            </div>
+        </header>
+
+        <!-- Quick Stats -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+            <div class="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm">
+                <div class="flex justify-between items-start">
+                    <p class="text-xs font-bold text-gray-400 uppercase tracking-wider">Active Batches</p>
+                    <svg class="w-6 h-6 text-mulberry opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 002-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
+                </div>
+                <h2 class="text-3xl font-extrabold text-gray-800 mt-2">12 <span class="text-lg text-gray-400 font-medium">sheds</span></h2>
+            </div>
+            
+            <div class="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm">
+                <div class="flex justify-between items-start">
+                    <p class="text-xs font-bold text-gray-400 uppercase tracking-wider">Leaf Stock</p>
+                    <svg class="w-6 h-6 text-green-500 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                </div>
+                <h2 class="text-3xl font-extrabold text-gray-800 mt-2">2,450 <span class="text-lg text-gray-400 font-medium">kg</span></h2>
+            </div>
+            
+            <div class="bg-white p-6 rounded-2xl border border-red-100 shadow-sm bg-red-50/30">
+                <div class="flex justify-between items-start">
+                    <p class="text-xs font-bold text-red-500 uppercase tracking-wider">Pending Tasks</p>
+                    <svg class="w-6 h-6 text-red-500 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+                </div>
+                <h2 class="text-3xl font-extrabold text-red-600 mt-2">3 <span class="text-lg text-red-400 font-medium">urgent</span></h2>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            
+            <!-- Urgent Tasks -->
+            <div class="bg-white rounded-2xl border border-gray-100 shadow-sm p-6">
+                <h3 class="text-lg font-bold text-gray-800 mb-6 border-b border-gray-100 pb-2">Required Action Items</h3>
+                <ul class="space-y-4">
+                    <li class="flex items-center justify-between p-4 bg-gray-50 rounded-xl border border-gray-100 hover:border-mulberry/30 transition-colors">
+                        <div class="flex items-center gap-4">
+                            <input type="checkbox" class="w-5 h-5 text-mulberry rounded border-gray-300">
+                            <div>
+                                <h4 class="font-bold text-gray-800">Complete Bed Disinfection SOP</h4>
+                                <p class="text-xs text-gray-500">Shed 4 & 5 • Due by 10:00 AM</p>
+                            </div>
+                        </div>
+                        <a href="#" class="text-sm font-bold text-mulberry hover:text-mulberry-dark">Execute →</a>
+                    </li>
+                    <li class="flex items-center justify-between p-4 bg-red-50 rounded-xl border border-red-100">
+                        <div class="flex items-center gap-4">
+                            <div class="w-5 h-5 rounded-full bg-red-500 flex items-center justify-center text-white text-xs">!</div>
+                            <div>
+                                <h4 class="font-bold text-red-700">Approve Bleaching Powder Indent</h4>
+                                <p class="text-xs text-red-500">Inventory critically low</p>
+                            </div>
+                        </div>
+                        <a href="inventory-predict.html" class="text-sm font-bold text-red-600 hover:text-red-800">Review →</a>
+                    </li>
+                    <li class="flex items-center justify-between p-4 bg-gray-50 rounded-xl border border-gray-100 hover:border-mulberry/30 transition-colors">
+                        <div class="flex items-center gap-4">
+                            <input type="checkbox" class="w-5 h-5 text-mulberry rounded border-gray-300">
+                            <div>
+                                <h4 class="font-bold text-gray-800">Log Daily Activity Metrics</h4>
+                                <p class="text-xs text-gray-500">Update temperature & feeding log</p>
+                            </div>
+                        </div>
+                        <a href="manager.html" class="text-sm font-bold text-mulberry hover:text-mulberry-dark">Log →</a>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Environmental Summary Widget -->
+            <div class="bg-white rounded-2xl border border-gray-100 shadow-sm p-6 flex flex-col justify-between">
+                <div>
+                    <h3 class="text-lg font-bold text-gray-800 mb-2">IoT Farm Status</h3>
+                    <p class="text-sm text-gray-500 mb-6">Aggregated climate data from active rearing sheds.</p>
+                </div>
+                
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="p-6 bg-orange-50 rounded-xl border border-orange-100 text-center">
+                        <p class="text-xs font-bold text-orange-600 uppercase">Avg Temp</p>
+                        <h2 class="text-3xl font-extrabold text-orange-600 mt-1">26.5°</h2>
+                        <p class="text-[10px] text-orange-500 mt-1">Slightly High</p>
+                    </div>
+                    <div class="p-6 bg-blue-50 rounded-xl border border-blue-100 text-center">
+                        <p class="text-xs font-bold text-blue-600 uppercase">Avg Humidity</p>
+                        <h2 class="text-3xl font-extrabold text-blue-600 mt-1">74%</h2>
+                        <p class="text-[10px] text-blue-500 mt-1">Optimal Range</p>
+                    </div>
+                </div>
+
+                <div class="mt-6 pt-4 border-t border-gray-100 text-center">
+                    <a href="smart-farm.html" class="text-sm font-bold text-mulberry hover:text-mulberry-dark transition-colors inline-flex items-center gap-2">
+                        View Live IoT Dashboard
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                    </a>
+                </div>
+            </div>
+
+        </div>
+
+    </main>
+
+</body>
+</html>
+
+

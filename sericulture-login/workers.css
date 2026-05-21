@@ -1,0 +1,39 @@
+body {
+    background-color: #fbf9f8;
+    background-image: radial-gradient(circle at 100% 0%, rgba(212, 175, 55, 0.08) 0%, transparent 40%),
+                      radial-gradient(circle at 0% 100%, rgba(168, 181, 141, 0.1) 0%, transparent 40%);
+    background-attachment: fixed;
+}
+
+.glass-panel {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.6);
+}
+
+.stat-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.stat-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 15px 30px rgba(87, 99, 65, 0.1);
+}
+
+.nav-link.active {
+    background-color: rgba(212, 175, 55, 0.1) !important;
+    color: #aa8b2c !important;
+    border-right: 3px solid #d4af37;
+}
+
+.nav-link:hover:not(.active) {
+    background-color: rgba(87, 99, 65, 0.05);
+}
+
+.input-field {
+    transition: all 0.3s ease;
+}
+.input-field:focus {
+    box-shadow: 0 4px 12px rgba(87, 99, 65, 0.1);
+    border-color: #576341;
+}
+\n

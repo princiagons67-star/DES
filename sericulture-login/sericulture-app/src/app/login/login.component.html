@@ -1,0 +1,32 @@
+<div class="fixed inset-0 z-0">
+  <img src="mulberry_leaves.png" alt="Background" class="w-full h-full object-cover">
+  <div class="bg-overlay"></div>
+</div>
+
+<main class="relative z-10 flex items-center justify-center min-h-screen py-10 px-4">
+  <div class="glass-card w-full max-w-md p-8 sm:p-10 rounded-2xl">
+      <div class="text-center mb-8">
+          <div class="inline-block p-3 rounded-full bg-cream shadow-sm mb-4 border border-mulberry-light/20">
+              <img src="logo.png" alt="SeriFusion Logo" class="w-16 h-16 object-contain rounded-full">
+          </div>
+          <h1 class="text-2xl sm:text-3xl font-bold text-mulberry-dark mb-2">Welcome to SeriFusion</h1>
+          <p class="text-sm sm:text-base text-earthy/80">Manage your silk farm with precision.</p>
+      </div>
+
+      <form (submit)="onLogin($event)" class="space-y-6">
+          <div class="space-y-2">
+              <label for="email" class="block text-sm font-semibold tracking-wide text-mulberry-dark uppercase">Gov / Admin ID</label>
+              <input type="text" id="email" required class="w-full px-4 py-3 bg-cream border border-gray-200 rounded-lg text-earthy focus:outline-none focus:ring-2 focus:ring-silkgold/50 placeholder-gray-400" placeholder="admin@serifusion.gov.in">
+          </div>
+
+          <div class="space-y-2">
+              <label for="password" class="block text-sm font-semibold tracking-wide text-mulberry-dark uppercase">Password</label>
+              <input type="password" id="password" required class="w-full px-4 py-3 bg-cream border border-gray-200 rounded-lg text-earthy focus:outline-none focus:ring-2 focus:ring-silkgold/50 placeholder-gray-400" placeholder="••••••••">
+          </div>
+
+          <button type="submit" class="w-full py-3.5 px-4 bg-mulberry text-white font-semibold rounded-lg shadow-md hover:bg-mulberry-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-mulberry flex justify-center items-center gap-2 transition-all hover:-translate-y-0.5">
+              <span>Secure Login</span>
+          </button>
+      </form>
+  </div>
+</main>

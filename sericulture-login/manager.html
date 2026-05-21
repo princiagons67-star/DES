@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SeriFlow - Manager Dashboard</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="manager-tailwind.js"></script>
+    <link rel="stylesheet" href="manager.css">
+</head>
+<body class="bg-cream text-earthy antialiased flex h-screen overflow-hidden">
+
+    <!-- Sidebar -->
+    <aside class="w-64 glass-panel shadow-soft flex flex-col h-full relative z-20">
+        <div class="p-6 flex items-center gap-3 border-b border-gray-100">
+            <img src="logo.png" alt="Logo" class="w-8 h-8 rounded-full">
+            <span class="font-bold text-xl text-mulberry-dark">SeriFlow</span>
+        </div>
+        
+        <div class="px-6 py-4">
+            <p class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">Manager Panel</p>
+            <nav class="flex flex-col gap-1">
+                <a href="#" class="nav-link active flex items-center gap-3 px-4 py-3 rounded-lg font-semibold transition-colors">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path></svg>
+                    Activity Log
+                </a>
+                <a href="crop-calendar.html" class="nav-link flex items-center gap-3 px-4 py-3 rounded-lg font-semibold text-gray-500 transition-colors hover:bg-gray-50 hover:text-mulberry">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                    Crop Calendar
+                </a>
+                <a href="#" class="nav-link flex items-center gap-3 px-4 py-3 rounded-lg font-semibold text-gray-500 transition-colors">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 002-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
+                    Inventory
+                </a>
+
+                <a href="cocoon-grading.html" class="nav-link flex items-center gap-3 px-4 py-3 rounded-lg font-semibold text-gray-500 transition-colors hover:bg-gray-50 hover:text-mulberry">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                    AI Cocoon Grading
+                </a>
+                <a href="gis-mapping.html" class="nav-link flex items-center gap-3 px-4 py-3 rounded-lg font-semibold text-gray-500 transition-colors hover:bg-gray-50 hover:text-mulberry">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    GIS Mapping
+                </a>
+                <a href="dfl-planning.html" class="nav-link flex items-center gap-3 px-4 py-3 rounded-lg font-semibold text-gray-500 transition-colors hover:bg-gray-50 hover:text-mulberry">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg>
+                    Capacity Forecasting
+                </a>
+                <a href="inventory-predict.html" class="nav-link flex items-center gap-3 px-4 py-3 rounded-lg font-semibold text-gray-500 transition-colors hover:bg-gray-50 hover:text-mulberry">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path></svg>
+                    Predictive Inventory
+                </a>
+
+            </nav>
+        </div>
+
+        <div class="mt-auto p-6 border-t border-gray-100">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-full bg-mulberry text-white flex items-center justify-center font-bold">FM</div>
+                <div>
+                    <p class="text-sm font-bold text-mulberry-dark">Farm Manager</p>
+                    <a href="index.html" class="text-xs text-gray-500 hover:text-mulberry">Logout</a>
+                </div>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="flex-1 h-full overflow-y-auto p-8 relative z-10">
+        <header class="mb-8 flex justify-between items-end">
+            <div>
+                <h1 class="text-3xl font-extrabold text-mulberry-dark">Daily Activities Log</h1>
+                <p class="text-earthy/70 mt-1">Record and track today's sericulture operations.</p>
+            </div>
+            <div class="text-sm font-semibold bg-white px-4 py-2 rounded-lg shadow-sm border border-gray-100 flex items-center gap-2">
+                <svg class="w-4 h-4 text-silkgold" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                <span id="currentDate"></span>
+            </div>
+        </header>
+
+        <!-- Entry Form -->
+        <div class="glass-panel rounded-2xl shadow-card p-6 md:p-8 mb-8 border border-gray-100">
+            <h2 class="text-xl font-bold text-mulberry-dark mb-6 border-b border-gray-100 pb-4">New Activity Entry</h2>
+            
+            <form onsubmit="event.preventDefault(); submitActivity();" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Silkworm Stage -->
+                <div class="space-y-2">
+                    <label class="block text-xs font-bold text-gray-500 uppercase">Silkworm Stage</label>
+                    <select class="input-field w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none">
+                        <option>Egg Incubation</option>
+                        <option>Larva (Instar 1-3)</option>
+                        <option>Larva (Instar 4-5)</option>
+                        <option>Spinning (Cocooning)</option>
+                        <option>Harvesting</option>
+                    </select>
+                </div>
+
+                <!-- Mulberry Leaf Consumption -->
+                <div class="space-y-2">
+                    <label class="block text-xs font-bold text-gray-500 uppercase">Mulberry Fed (kg)</label>
+                    <input type="number" placeholder="e.g. 50" class="input-field w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none">
+                </div>
+
+                <!-- Climate Data -->
+                <div class="space-y-2">
+                    <label class="block text-xs font-bold text-gray-500 uppercase">Avg Temperature (°C)</label>
+                    <input type="number" step="0.1" placeholder="e.g. 26.5" class="input-field w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none">
+                </div>
+                
+                <div class="space-y-2">
+                    <label class="block text-xs font-bold text-gray-500 uppercase">Avg Humidity (%)</label>
+                    <input type="number" placeholder="e.g. 80" class="input-field w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none">
+                </div>
+
+                <!-- Health Status -->
+                <div class="space-y-2">
+                    <label class="block text-xs font-bold text-gray-500 uppercase">Health Status</label>
+                    <select class="input-field w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none">
+                        <option>Healthy - Normal Activity</option>
+                        <option>Lethargic</option>
+                        <option>Disease Detected (Isolate)</option>
+                    </select>
+                </div>
+
+                <!-- Notes -->
+                <div class="space-y-2 lg:col-span-3">
+                    <label class="block text-xs font-bold text-gray-500 uppercase">Observation Notes</label>
+                    <textarea rows="3" placeholder="Any specific observations about the bed cleaning, moulting, or leaf quality..." class="input-field w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none"></textarea>
+                </div>
+
+                <!-- Submit -->
+                <div class="lg:col-span-3 flex justify-end">
+                    <button type="submit" class="btn-primary bg-mulberry text-white font-bold py-3 px-8 rounded-lg flex items-center gap-2">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path></svg>
+                        Log Activity
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Recent Logs Table -->
+        <h2 class="text-xl font-bold text-mulberry-dark mb-4">Recent Logs</h2>
+        <div class="glass-panel rounded-2xl shadow-soft overflow-hidden">
+            <table class="w-full text-left border-collapse">
+                <thead>
+                    <tr class="bg-gray-50 border-b border-gray-100 text-xs uppercase tracking-wider text-gray-500">
+                        <th class="p-4 font-bold">Time</th>
+                        <th class="p-4 font-bold">Stage</th>
+                        <th class="p-4 font-bold">Temp/Hum</th>
+                        <th class="p-4 font-bold">Food Consumed</th>
+                        <th class="p-4 font-bold">Status</th>
+                    </tr>
+                </thead>
+                <tbody class="text-sm">
+                    <tr class="border-b border-gray-50 hover:bg-gray-50/50 transition-colors">
+                        <td class="p-4 font-semibold">Today, 08:00 AM</td>
+                        <td class="p-4">Larva (Instar 4-5)</td>
+                        <td class="p-4">25.5°C / 78%</td>
+                        <td class="p-4 font-medium">45 kg</td>
+                        <td class="p-4"><span class="px-3 py-1 rounded-full text-xs font-bold bg-green-100 text-green-700">Healthy</span></td>
+                    </tr>
+                    <tr class="border-b border-gray-50 hover:bg-gray-50/50 transition-colors">
+                        <td class="p-4 font-semibold">Yesterday, 06:30 PM</td>
+                        <td class="p-4">Larva (Instar 4-5)</td>
+                        <td class="p-4">26.0°C / 75%</td>
+                        <td class="p-4 font-medium">50 kg</td>
+                        <td class="p-4"><span class="px-3 py-1 rounded-full text-xs font-bold bg-green-100 text-green-700">Healthy</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </main>
+
+    <script src="manager.js"></script>
+</body>
+</html>
+
+

@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SeriFlow - Farm Workers Management</title>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="workers-tailwind.js"></script>
+    <link rel="stylesheet" href="workers.css">
+</head>
+<body class="bg-cream text-earthy antialiased flex h-screen overflow-hidden">
+
+    <!-- Sidebar -->
+    <aside class="w-64 glass-panel shadow-soft flex flex-col h-full relative z-20 flex-shrink-0">
+        <div class="p-6 flex items-center gap-3 border-b border-gray-100">
+            <img src="logo.png" alt="Logo" class="w-8 h-8 rounded-full">
+            <span class="font-bold text-xl text-mulberry-dark">SeriFlow</span>
+        </div>
+        
+        <div class="px-6 py-4 flex-1 overflow-y-auto">
+            <p class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">Admin Dashboard</p>
+            <nav class="flex flex-col gap-1">
+                <a href="admin.html" class="nav-link flex items-center gap-3 px-4 py-3 rounded-lg font-semibold text-gray-500 transition-colors">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 3.055A9.001 9.001 0 1020.945 13H11V3.055z"></path></svg>
+                    Farm Sales
+                </a>
+                <a href="manager.html" class="nav-link flex items-center gap-3 px-4 py-3 rounded-lg font-semibold text-gray-500 transition-colors">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path></svg>
+                    Manager Logs
+                </a>
+
+                <a href="workers.html" class="nav-link active flex items-center gap-3 px-4 py-3 rounded-lg font-semibold text-gray-500 transition-colors">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
+                    Workers
+                </a>
+                <a href="insights.html" class="nav-link  flex items-center gap-3 px-4 py-3 rounded-lg font-semibold text-gray-500 transition-colors">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
+                    Insights
+                </a>
+                <a href="documentaries.html" class="nav-link  flex items-center gap-3 px-4 py-3 rounded-lg font-semibold text-gray-500 transition-colors">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
+                    Documentaries
+                </a>
+            </nav>
+        </div>
+
+        <div class="mt-auto p-6 border-t border-gray-100">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-full bg-silkgold text-white flex items-center justify-center font-bold shadow-md">AD</div>
+                <div>
+                    <p class="text-sm font-bold text-mulberry-dark">Administrator</p>
+                    <a href="index.html" class="text-xs text-gray-500 hover:text-mulberry">Logout</a>
+                </div>
+            </div>
+        </div>
+    </aside>
+
+    <main class="flex-1 h-full overflow-y-auto p-8 relative z-10">
+        <header class="mb-8 flex justify-between items-end">
+            <div>
+                <h1 class="text-3xl font-extrabold text-mulberry-dark">Farm Workers Management</h1>
+            </div>
+        </header>
+        
+<div class="glass-panel rounded-2xl shadow-card p-6 border border-gray-100">
+    <div class="flex justify-between items-center mb-6">
+        <h2 class="text-xl font-bold text-mulberry-dark">Farm Workers Directory</h2>
+        <button class="bg-mulberry text-white px-4 py-2 rounded-lg font-bold hover:bg-mulberry-dark transition shadow-md">
+            + Add Worker
+        </button>
+    </div>
+    <div class="overflow-x-auto">
+        <table class="w-full text-left">
+            <thead>
+                <tr class="bg-gray-50 text-gray-500 text-xs uppercase tracking-wider border-b border-gray-200">
+                    <th class="p-4 rounded-tl-lg">Worker Name</th>
+                    <th class="p-4">Role</th>
+                    <th class="p-4">Days Worked</th>
+                    <th class="p-4">Daily Wage ($)</th>
+                    <th class="p-4">Total Salary ($)</th>
+                    <th class="p-4 rounded-tr-lg">Actions</th>
+                </tr>
+            </thead>
+            <tbody class="text-sm bg-white divide-y divide-gray-100">
+                <tr class="hover:bg-gray-50 transition">
+                    <td class="p-4 font-bold text-earthy flex items-center gap-3">
+                        <div class="w-8 h-8 rounded-full bg-mulberry/20 text-mulberry flex items-center justify-center font-bold">R</div>
+                        Rahul Sharma
+                    </td>
+                    <td class="p-4 text-gray-600">Rearing Specialist</td>
+                    <td class="p-4"><input type="number" value="24" class="w-16 p-1 border rounded text-center input-field"></td>
+                    <td class="p-4"><input type="number" value="15" class="w-16 p-1 border rounded text-center input-field"></td>
+                    <td class="p-4 font-bold text-mulberry-dark total-salary">$360</td>
+                    <td class="p-4">
+                        <button class="text-silkgold font-bold hover:underline">Edit</button>
+                    </td>
+                </tr>
+                <tr class="hover:bg-gray-50 transition">
+                    <td class="p-4 font-bold text-earthy flex items-center gap-3">
+                        <div class="w-8 h-8 rounded-full bg-silkgold/20 text-silkgold-dark flex items-center justify-center font-bold">A</div>
+                        Anita Desai
+                    </td>
+                    <td class="p-4 text-gray-600">Leaf Harvester</td>
+                    <td class="p-4"><input type="number" value="20" class="w-16 p-1 border rounded text-center input-field"></td>
+                    <td class="p-4"><input type="number" value="12" class="w-16 p-1 border rounded text-center input-field"></td>
+                    <td class="p-4 font-bold text-mulberry-dark total-salary">$240</td>
+                    <td class="p-4">
+                        <button class="text-silkgold font-bold hover:underline">Edit</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+    </main>
+    <script src="workers.js"></script>
+</body>
+</html>
+

@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SeriFlow Marketplace - China Technology Machinery</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="marketplace-tailwind.js"></script>
+    <link rel="stylesheet" href="marketplace.css">
+</head>
+<body class="bg-cream text-earthy antialiased">
+
+    <!-- Navigation -->
+    <nav class="nav-glass fixed w-full z-50 top-0 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <!-- Logo -->
+                <div class="flex-shrink-0 flex items-center gap-3">
+                    <img class="h-10 w-10 rounded-full shadow-sm" src="logo.png" alt="SeriFlow Logo">
+                    <span class="font-bold text-xl text-mulberry-dark tracking-tight">SeriFlow <span class="text-silkgold">Market</span></span>
+                </div>
+                <!-- Links -->
+                <div class="hidden md:flex space-x-8 items-center">
+                    <a href="#" class="text-mulberry font-medium hover:text-silkgold transition-colors">Machinery</a>
+                    <a href="#" class="text-earthy font-medium hover:text-silkgold transition-colors">Raw Silk</a>
+                    <a href="#" class="text-earthy font-medium hover:text-silkgold transition-colors">Analytics</a>
+                    <a href="index.html" class="text-sm font-semibold text-mulberry bg-mulberry/10 px-5 py-2.5 rounded-full hover:bg-mulberry hover:text-white transition-all">Sign In</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <div class="relative pt-32 pb-20 lg:pt-40 lg:pb-28 overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10 fade-in">
+            <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-silkgold/10 text-silkgold-dark font-semibold text-sm mb-6 border border-silkgold/20">
+                <span class="relative flex h-2.5 w-2.5">
+                  <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-silkgold opacity-75"></span>
+                  <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-silkgold"></span>
+                </span>
+                Direct Import from Shenzhen & Hangzhou
+            </div>
+            <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold text-mulberry-dark tracking-tight mb-6">
+                Advanced <span class="text-transparent bg-clip-text bg-gradient-to-r from-mulberry to-silkgold">China Technology</span>
+                <br>For Modern Sericulture.
+            </h1>
+            <p class="max-w-2xl mx-auto text-lg text-earthy/80 mb-10">
+                Upgrade your silk production pipeline with state-of-the-art automated machinery. From intelligent rearing beds to precision reeling—maximize yield and purity.
+            </p>
+        </div>
+    </div>
+
+    <!-- Product Grid -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-32">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+
+            <!-- Product 1 -->
+            <div class="product-card rounded-2xl shadow-soft flex flex-col fade-in delay-1">
+                <div class="product-image-container h-64 w-full bg-gray-100">
+                    <img src="machine_sorting.png" alt="Cocoon Sorting Machine" class="product-image w-full h-full object-cover">
+                    <div class="absolute top-4 right-4 badge text-white text-xs font-bold px-3 py-1.5 rounded-full shadow-md">
+                        Best Seller
+                    </div>
+                </div>
+                <div class="p-6 flex flex-col flex-grow">
+                    <div class="text-xs font-bold text-silkgold uppercase tracking-wider mb-2">Automated Processing</div>
+                    <h3 class="text-xl font-bold text-mulberry-dark mb-3">AI Cocoon Sorting Machine</h3>
+                    <p class="text-earthy/80 text-sm mb-6 flex-grow">
+                        Utilizes advanced optical sensors and AI to sort cocoons by size, color, and defect rate at a speed of 120 units per minute. Reduces manual labor by 85%.
+                    </p>
+                    <div class="flex items-center justify-between mt-auto pt-4 border-t border-gray-100">
+                        <div class="flex flex-col">
+                            <span class="text-xs text-gray-500 line-through">$12,500</span>
+                            <span class="text-xl font-extrabold text-mulberry">$10,999</span>
+                        </div>
+                        <button class="btn-outline border-2 border-mulberry text-mulberry px-5 py-2 rounded-lg font-bold text-sm">Request Quote</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 2 -->
+            <div class="product-card rounded-2xl shadow-soft flex flex-col fade-in delay-2">
+                <div class="product-image-container h-64 w-full bg-gray-100">
+                    <img src="machine_reeling.png" alt="Silk Reeling Machine" class="product-image w-full h-full object-cover">
+                    <div class="absolute top-4 right-4 bg-mulberry text-white text-xs font-bold px-3 py-1.5 rounded-full shadow-md">
+                        New Tech
+                    </div>
+                </div>
+                <div class="p-6 flex flex-col flex-grow">
+                    <div class="text-xs font-bold text-silkgold uppercase tracking-wider mb-2">Precision Extraction</div>
+                    <h3 class="text-xl font-bold text-mulberry-dark mb-3">Precision Silk Reeling Loom</h3>
+                    <p class="text-earthy/80 text-sm mb-6 flex-grow">
+                        State-of-the-art reeling technology that ensures continuous, high-tensile silk thread extraction. Features an automated water temperature control system and touch interface.
+                    </p>
+                    <div class="flex items-center justify-between mt-auto pt-4 border-t border-gray-100">
+                        <div class="flex flex-col">
+                            <span class="text-xs text-transparent">Price</span>
+                            <span class="text-xl font-extrabold text-mulberry">$24,500</span>
+                        </div>
+                        <button class="btn-outline border-2 border-mulberry text-mulberry px-5 py-2 rounded-lg font-bold text-sm">Request Quote</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 3 -->
+            <div class="product-card rounded-2xl shadow-soft flex flex-col fade-in delay-3">
+                <div class="product-image-container h-64 w-full bg-gray-100">
+                    <img src="machine_rearing.png" alt="Silkworm Rearing Bed" class="product-image w-full h-full object-cover">
+                </div>
+                <div class="p-6 flex flex-col flex-grow">
+                    <div class="text-xs font-bold text-silkgold uppercase tracking-wider mb-2">Lifecycle Management</div>
+                    <h3 class="text-xl font-bold text-mulberry-dark mb-3">Intelligent Rearing Bed</h3>
+                    <p class="text-earthy/80 text-sm mb-6 flex-grow">
+                        A multi-tiered automated rearing system. Comes equipped with IoT climate sensors, automated feeding trays, and disease prevention UV lighting for optimal growth cycles.
+                    </p>
+                    <div class="flex items-center justify-between mt-auto pt-4 border-t border-gray-100">
+                        <div class="flex flex-col">
+                            <span class="text-xs text-transparent">Price</span>
+                            <span class="text-xl font-extrabold text-mulberry">$8,200</span>
+                        </div>
+                        <button class="btn-outline border-2 border-mulberry text-mulberry px-5 py-2 rounded-lg font-bold text-sm">Request Quote</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Features Banner -->
+    <div class="bg-mulberry-dark text-white py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+                <div>
+                    <div class="w-12 h-12 mx-auto bg-silkgold/20 rounded-full flex items-center justify-center mb-4 text-silkgold">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                    </div>
+                    <h4 class="text-lg font-bold mb-2">High Efficiency</h4>
+                    <p class="text-sm text-gray-300">Boost yield by up to 40% with automated lifecycle tracking and sorting.</p>
+                </div>
+                <div>
+                    <div class="w-12 h-12 mx-auto bg-silkgold/20 rounded-full flex items-center justify-center mb-4 text-silkgold">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+                    </div>
+                    <h4 class="text-lg font-bold mb-2">Shenzhen Quality</h4>
+                    <p class="text-sm text-gray-300">Directly sourced from top-tier Chinese agricultural tech manufacturers.</p>
+                </div>
+                <div>
+                    <div class="w-12 h-12 mx-auto bg-silkgold/20 rounded-full flex items-center justify-center mb-4 text-silkgold">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192l-3.536 3.536M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+                    </div>
+                    <h4 class="text-lg font-bold mb-2">24/7 Support</h4>
+                    <p class="text-sm text-gray-300">Full installation assistance and continuous technical support.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
+
+
