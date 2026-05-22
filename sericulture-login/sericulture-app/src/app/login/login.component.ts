@@ -11,6 +11,6 @@ export class LoginComponent {
 
   onLogin(event: Event) {
     event.preventDefault();
-    this.router.navigate(['/admin']);
+    this.router.navigate(['/']);
   }
 }

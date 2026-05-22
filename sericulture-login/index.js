@@ -40,7 +40,7 @@ function togglePassword() {
                 form.style.boxShadow = '0 8px 32px 0 rgba(87, 99, 65, 0.3)';
                 setTimeout(() => {
                     form.style.boxShadow = '0 8px 32px 0 rgba(87, 99, 65, 0.1)';
-                    window.location.href = 'admin.html';
+                    window.location.href = 'farmer-home.html';
                 }, 300);
                 
             }, 1500);
