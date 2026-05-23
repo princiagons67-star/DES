@@ -25,13 +25,18 @@
                     <p class="text-sm font-medium text-gray-500">Record manual entries for your active rearing batch.</p>
                 </div>
             </div>
-            <a href="farmer-home.html" class="hidden sm:flex px-4 py-2 bg-white text-gray-600 border border-gray-200 rounded-lg text-sm font-bold shadow-sm hover:text-mulberry transition-colors items-center gap-2">
-                <i class="ph ph-squares-four text-lg"></i> Dashboard
-            </a>
+            <div class="flex gap-2">
+                <button type="button" onclick="showRecentLogs()" class="hidden sm:flex px-4 py-2 bg-white text-gray-600 border border-gray-200 rounded-lg text-sm font-bold shadow-sm hover:text-mulberry transition-colors items-center gap-2">
+                    <i class="ph ph-list-dashes text-lg"></i> Recent Logs
+                </button>
+                <a href="farmer-home.html" class="hidden sm:flex px-4 py-2 bg-white text-gray-600 border border-gray-200 rounded-lg text-sm font-bold shadow-sm hover:text-mulberry transition-colors items-center gap-2">
+                    <i class="ph ph-squares-four text-lg"></i> Dashboard
+                </a>
+            </div>
         </div>
 
         <div class="bg-white p-8 sm:p-10 rounded-3xl shadow-sm border border-gray-100 relative">
-            <form onsubmit="event.preventDefault(); showSuccessModal();" class="space-y-8">
+            <form id="farmUpdateForm" class="space-y-8">
                 
                 <!-- Section 1: Basic Info -->
                 <div>
@@ -44,10 +49,15 @@
                             <input type="date" id="logDate" class="w-full bg-gray-50 border border-gray-200 text-gray-800 font-bold rounded-xl focus:ring-mulberry focus:border-mulberry block p-3 outline-none" required>
                         </div>
                         <div>
-                            <label class="block text-sm font-bold text-gray-700 mb-2">Active Batch ID</label>
-                            <select class="w-full bg-gray-50 border border-gray-200 text-gray-800 font-bold rounded-xl focus:ring-mulberry focus:border-mulberry block p-3 outline-none">
-                                <option>Batch #402 (Current)</option>
-                                <option>Batch #401 (Completed)</option>
+                            <label class="flex justify-between items-center text-sm font-bold text-gray-700 mb-2">
+                                Active Batch ID
+                                <button type="button" class="text-xs bg-mulberry/10 text-mulberry hover:bg-mulberry hover:text-white px-2 py-1 rounded transition-colors flex items-center gap-1" onclick="addNewBatch()">
+                                    <i class="ph ph-plus font-bold"></i> Add Batch
+                                </button>
+                            </label>
+                            <select id="batchSelect" class="w-full bg-gray-50 border border-gray-200 text-gray-800 font-bold rounded-xl focus:ring-mulberry focus:border-mulberry block p-3 outline-none">
+                                <option value="Batch #402">Batch #402 (Current)</option>
+                                <option value="Batch #401">Batch #401 (Completed)</option>
                             </select>
                         </div>
                         <div class="md:col-span-2">
@@ -90,15 +100,15 @@
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                         <div>
                             <label class="block text-sm font-bold text-gray-700 mb-2">Indoor Temp (°C)</label>
-                            <input type="number" step="0.1" placeholder="e.g. 26.5" class="w-full bg-gray-50 border border-gray-200 text-gray-800 font-bold rounded-xl focus:ring-mulberry focus:border-mulberry block p-3 outline-none">
+                            <input type="number" id="indoorTemp" step="0.1" placeholder="e.g. 26.5" class="w-full bg-gray-50 border border-gray-200 text-gray-800 font-bold rounded-xl focus:ring-mulberry focus:border-mulberry block p-3 outline-none" required>
                         </div>
                         <div>
                             <label class="block text-sm font-bold text-gray-700 mb-2">Indoor Humidity (%)</label>
-                            <input type="number" placeholder="e.g. 75" class="w-full bg-gray-50 border border-gray-200 text-gray-800 font-bold rounded-xl focus:ring-mulberry focus:border-mulberry block p-3 outline-none">
+                            <input type="number" id="indoorHumidity" placeholder="e.g. 75" class="w-full bg-gray-50 border border-gray-200 text-gray-800 font-bold rounded-xl focus:ring-mulberry focus:border-mulberry block p-3 outline-none" required>
                         </div>
                         <div>
                             <label class="block text-sm font-bold text-gray-700 mb-2">Leaf Fed Today (kg)</label>
-                            <input type="number" placeholder="e.g. 120" class="w-full bg-gray-50 border border-gray-200 text-gray-800 font-bold rounded-xl focus:ring-mulberry focus:border-mulberry block p-3 outline-none">
+                            <input type="number" id="leafFed" placeholder="e.g. 120" class="w-full bg-gray-50 border border-gray-200 text-gray-800 font-bold rounded-xl focus:ring-mulberry focus:border-mulberry block p-3 outline-none" required>
                         </div>
                     </div>
                 </div>
@@ -115,7 +125,7 @@
                                 <p class="text-xs text-gray-500 font-medium">Was the rearing bed cleaned today?</p>
                             </div>
                             <div class="relative inline-flex items-center cursor-pointer">
-                                <input type="checkbox" class="sr-only peer" checked>
+                                <input type="checkbox" id="bedCleaned" class="sr-only peer" checked>
                                 <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-mulberry"></div>
                             </div>
                         </label>
@@ -125,7 +135,7 @@
                                 <p class="text-xs text-gray-500 font-medium">Was Vijetha or bleaching powder applied?</p>
                             </div>
                             <div class="relative inline-flex items-center cursor-pointer">
-                                <input type="checkbox" class="sr-only peer">
+                                <input type="checkbox" id="disinfectantApplied" class="sr-only peer">
                                 <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-mulberry"></div>
                             </div>
                         </label>
@@ -137,7 +147,7 @@
                     <h3 class="text-lg font-bold text-gray-800 mb-4 flex items-center gap-2 border-b border-gray-100 pb-2">
                         <i class="ph ph-warning-circle text-orange-500"></i> Notes & Health Observations
                     </h3>
-                    <textarea rows="4" placeholder="Mention any dead worms, unusual behavior, or specific actions taken today..." class="w-full bg-gray-50 border border-gray-200 text-gray-800 font-medium rounded-xl focus:ring-mulberry focus:border-mulberry block p-4 outline-none"></textarea>
+                    <textarea id="notes" rows="4" placeholder="Mention any dead worms, unusual behavior, or specific actions taken today..." class="w-full bg-gray-50 border border-gray-200 text-gray-800 font-medium rounded-xl focus:ring-mulberry focus:border-mulberry block p-4 outline-none"></textarea>
                 </div>
 
                 <!-- Submit -->
@@ -162,16 +172,143 @@
         </div>
     </div>
 
+    <!-- Recent Logs Modal -->
+    <div id="recentLogsModal" class="fixed inset-0 bg-black/50 backdrop-blur-sm hidden flex items-center justify-center z-50 px-4 opacity-0 transition-opacity duration-300">
+        <div class="bg-white rounded-3xl p-6 max-w-lg w-full shadow-2xl transform scale-95 transition-transform duration-300 flex flex-col max-h-[80vh]" id="recentLogsContent">
+            <div class="flex justify-between items-center mb-4">
+                <h2 class="text-2xl font-extrabold text-gray-800">Recent Logs</h2>
+                <button onclick="closeRecentLogs()" class="text-gray-400 hover:text-gray-600 transition-colors">
+                    <i class="ph ph-x text-2xl"></i>
+                </button>
+            </div>
+            <div id="logsContainer" class="flex-1 overflow-y-auto space-y-4 custom-scrollbar pr-2">
+                <!-- Logs will be inserted here dynamically -->
+                <div class="text-center text-gray-500 py-8">Loading logs...</div>
+            </div>
+        </div>
+    </div>
+
     <script>
         // Set today's date automatically
         document.getElementById('logDate').valueAsDate = new Date();
+
+        function addNewBatch() {
+            const batchId = prompt("Enter new Batch ID (e.g., Batch #403):");
+            if (batchId) {
+                const select = document.getElementById('batchSelect');
+                const option = document.createElement('option');
+                option.value = batchId;
+                option.text = batchId + " (Current)";
+                select.add(option, select.options[0]);
+                select.selectedIndex = 0;
+            }
+        }
+
+        document.getElementById('farmUpdateForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            // Gather form data
+            const date = document.getElementById('logDate').value;
+            const batchId = document.getElementById('batchSelect').value;
+            const stage = document.querySelector('input[name="stage"]:checked').value;
+            const temp = document.getElementById('indoorTemp').value;
+            const humidity = document.getElementById('indoorHumidity').value;
+            const leafFed = document.getElementById('leafFed').value;
+            const bedCleaned = document.getElementById('bedCleaned').checked;
+            const disinfectantApplied = document.getElementById('disinfectantApplied').checked;
+            const notes = document.getElementById('notes').value;
+
+            const logData = {
+                date, batchId, stage, temp, humidity, leafFed, bedCleaned, disinfectantApplied, notes,
+                timestamp: new Date().toISOString()
+            };
+
+            try {
+                // Change button to loading state
+                const submitBtn = document.querySelector('button[type="submit"]');
+                const originalText = submitBtn.innerHTML;
+                submitBtn.innerHTML = '<i class="ph ph-spinner animate-spin text-xl"></i> Saving...';
+                submitBtn.disabled = true;
+
+                await fetch('https://d-e-s-fbaf2-default-rtdb.firebaseio.com/farm-logs.json', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(logData)
+                });
+                
+                showSuccessModal();
+                submitBtn.innerHTML = originalText;
+                submitBtn.disabled = false;
+                e.target.reset();
+                document.getElementById('logDate').valueAsDate = new Date();
+            } catch (error) {
+                console.error("Error saving log:", error);
+                alert("Failed to save log. Please try again.");
+                const submitBtn = document.querySelector('button[type="submit"]');
+                submitBtn.innerHTML = '<i class="ph ph-floppy-disk text-xl"></i> Save Daily Log';
+                submitBtn.disabled = false;
+            }
+        });
+
+        async function showRecentLogs() {
+            const modal = document.getElementById('recentLogsModal');
+            const content = document.getElementById('recentLogsContent');
+            const container = document.getElementById('logsContainer');
+            
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+                modal.classList.remove('opacity-0');
+                content.classList.remove('scale-95');
+                content.classList.add('scale-100');
+            }, 10);
+
+            try {
+                const res = await fetch('https://d-e-s-fbaf2-default-rtdb.firebaseio.com/farm-logs.json');
+                const data = await res.json();
+                
+                if (data) {
+                    const logs = Object.values(data).sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
+                    container.innerHTML = logs.map(log => `
+                        <div class="p-4 border border-gray-100 rounded-xl bg-gray-50 hover:border-mulberry/50 transition-colors">
+                            <div class="flex justify-between items-start mb-2">
+                                <div>
+                                    <span class="text-xs font-bold bg-mulberry/10 text-mulberry px-2 py-1 rounded">${log.batchId}</span>
+                                    <span class="text-xs font-bold text-gray-500 ml-2">Stage: ${log.stage}</span>
+                                </div>
+                                <span class="text-xs font-bold text-gray-400">${log.date}</span>
+                            </div>
+                            <div class="grid grid-cols-3 gap-2 text-sm mt-3">
+                                <div><span class="text-gray-500">Temp:</span> <span class="font-semibold">${log.temp}°C</span></div>
+                                <div><span class="text-gray-500">Hum:</span> <span class="font-semibold">${log.humidity}%</span></div>
+                                <div><span class="text-gray-500">Feed:</span> <span class="font-semibold">${log.leafFed}kg</span></div>
+                            </div>
+                            ${log.notes ? `<p class="text-xs text-gray-600 mt-2 bg-white p-2 rounded border border-gray-100">Notes: ${log.notes}</p>` : ''}
+                        </div>
+                    `).join('');
+                } else {
+                    container.innerHTML = '<div class="text-center text-gray-500 py-8">No logs found.</div>';
+                }
+            } catch(e) {
+                container.innerHTML = '<div class="text-center text-red-500 py-8">Error loading logs.</div>';
+            }
+        }
+
+        function closeRecentLogs() {
+            const modal = document.getElementById('recentLogsModal');
+            const content = document.getElementById('recentLogsContent');
+            modal.classList.add('opacity-0');
+            content.classList.remove('scale-100');
+            content.classList.add('scale-95');
+            setTimeout(() => {
+                modal.classList.add('hidden');
+            }, 300);
+        }
 
         function showSuccessModal() {
             const modal = document.getElementById('successModal');
             const content = document.getElementById('modalContent');
             
             modal.classList.remove('hidden');
-            // small delay to allow display block to apply before animating opacity
             setTimeout(() => {
                 modal.classList.remove('opacity-0');
                 content.classList.remove('scale-95');
@@ -180,7 +317,14 @@
         }
 
         function closeModal() {
-            window.location.href = 'farmer-home.html';
+            const modal = document.getElementById('successModal');
+            const content = document.getElementById('modalContent');
+            modal.classList.add('opacity-0');
+            content.classList.remove('scale-100');
+            content.classList.add('scale-95');
+            setTimeout(() => {
+                modal.classList.add('hidden');
+            }, 300);
         }
     </script>
 </body>

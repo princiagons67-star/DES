@@ -85,202 +85,74 @@
             <p class="text-lg text-gray-600">Connect directly with weavers, reelers, and international exporters. Secure 15-20% higher returns for your yield. Transparent 2-5% transaction commission only on successful sales.</p>
         </header>
 
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-            
-            <!-- List Your Yield Form -->
-            <div class="lg:col-span-1">
-                <div class="glass-card bg-white p-6 rounded-2xl shadow-sm border border-gray-100 sticky top-24">
-                    <h2 class="text-xl font-bold text-mulberry-dark mb-6 border-b border-gray-100 pb-2">Create New Listing</h2>
-                    
-                    <form class="space-y-4">
-                        <div class="space-y-1.5">
-                            <label class="block text-xs font-bold text-gray-500 uppercase">Product Type</label>
-                            <select class="input-field w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-mulberry text-gray-800 font-medium">
-                                <option>Bivoltine Cocoons</option>
-                                <option>Crossbreed Cocoons</option>
-                                <option>Multivoltine Cocoons</option>
-                                <option>Raw Silk Yarn</option>
-                            </select>
-                        </div>
-                        
-                        <div class="space-y-1.5">
-                            <label class="block text-xs font-bold text-gray-500 uppercase">Quantity (kg)</label>
-                            <input type="number" placeholder="e.g. 500" class="input-field w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-mulberry text-gray-800 font-medium">
-                        </div>
-
-                        <div class="space-y-1.5">
-                            <label class="block text-xs font-bold text-gray-500 uppercase">Your Asking Price (₹/kg)</label>
-                            <div class="relative">
-                                <span class="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500 font-bold">₹</span>
-                                <input type="number" placeholder="480" class="input-field w-full pl-8 pr-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-mulberry text-gray-800 font-bold">
-                            </div>
-                            <p class="text-[10px] text-gray-400 text-right mt-1">Platform fee (2%): ~₹9.6/kg</p>
-                        </div>
-
-                        <div class="space-y-1.5">
-                            <label class="block text-xs font-bold text-gray-500 uppercase">Upload AI Grading Report</label>
-                            <div class="w-full border-2 border-dashed border-gray-300 rounded-xl p-4 text-center hover:bg-gray-50 cursor-pointer transition-colors">
-                                <svg class="w-6 h-6 text-gray-400 mx-auto mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path></svg>
-                                <span class="text-xs text-gray-500 font-bold">Upload PDF or Image</span>
-                            </div>
-                        </div>
-
-                        <button type="button" class="w-full py-3 mt-4 bg-mulberry text-white font-bold rounded-xl shadow-md hover:bg-mulberry-dark transform hover:-translate-y-0.5 transition-all flex justify-center items-center gap-2">
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path></svg>
-                            Post to Exchange
-                        </button>
-                    </form>
+        <div class="glass-card bg-white p-8 rounded-2xl shadow-sm border border-gray-100 mb-8">
+            <div class="flex justify-between items-center mb-6 border-b border-gray-100 pb-4">
+                <h2 class="text-2xl font-bold text-mulberry-dark" data-translate="Market Prices">Market Prices</h2>
+                <div class="flex items-center gap-3">
+                    <label class="text-sm font-bold text-gray-500 uppercase" data-translate="Market Type">Market Type</label>
+                    <select id="marketSelector" class="input-field px-4 py-2 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-mulberry text-gray-800 font-medium" onchange="updateMarketPrices()">
+                        <option value="ramanagara" data-translate="Ramanagara Market">Ramanagara Market</option>
+                        <option value="sidlaghatta" data-translate="Sidlaghatta Market">Sidlaghatta Market</option>
+                        <option value="kolar" data-translate="Kolar Market">Kolar Market</option>
+                    </select>
                 </div>
             </div>
 
-            <!-- Active Buyers Feed -->
-            <div class="lg:col-span-2 space-y-6">
-                
-                <div class="flex justify-between items-center mb-4">
-                    <h2 class="text-xl font-bold text-mulberry-dark">Active Buyer Contracts</h2>
-                    <div class="flex gap-2">
-                        <button class="px-3 py-1.5 text-xs font-bold bg-white border border-gray-200 rounded-lg shadow-sm hover:bg-gray-50 text-gray-700">Filter by Type</button>
-                        <button class="px-3 py-1.5 text-xs font-bold bg-white border border-gray-200 rounded-lg shadow-sm hover:bg-gray-50 text-gray-700">Sort: Highest Price</button>
-                    </div>
-                </div>
-
-                <!-- Contract 1 -->
-                <div class="glass-card bg-white p-6 rounded-2xl shadow-sm border border-gray-100 hover:border-mulberry/30 transition-colors">
-                    <div class="flex justify-between items-start mb-4">
-                        <div class="flex gap-4 items-center">
-                            <div class="w-12 h-12 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center font-bold text-lg">KS</div>
-                            <div>
-                                <h3 class="font-bold text-gray-900 text-lg">Karnataka Silks Ltd.</h3>
-                                <div class="flex items-center gap-2 text-xs text-gray-500 mt-0.5">
-                                    <svg class="w-4 h-4 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                                    Verified Reeler
-                                    <span class="text-gray-300">•</span>
-                                    Mysuru
-                                </div>
-                            </div>
-                        </div>
-                        <div class="text-right">
-                            <span class="text-2xl font-extrabold text-green-600">₹495<span class="text-sm text-gray-500 font-medium">/kg</span></span>
-                            <p class="text-xs font-bold text-gray-400 uppercase mt-1">Target Price</p>
-                        </div>
-                    </div>
-                    
-                    <div class="grid grid-cols-3 gap-4 mb-6 p-4 bg-gray-50 rounded-xl border border-gray-100">
-                        <div>
-                            <p class="text-xs font-bold text-gray-400 uppercase mb-1">Requirement</p>
-                            <p class="font-bold text-gray-800">Bivoltine Cocoons</p>
-                        </div>
-                        <div>
-                            <p class="text-xs font-bold text-gray-400 uppercase mb-1">Volume Needed</p>
-                            <p class="font-bold text-gray-800">1,200 kg</p>
-                        </div>
-                        <div>
-                            <p class="text-xs font-bold text-gray-400 uppercase mb-1">Grade</p>
-                            <p class="font-bold text-silkgold">A-Grade Only</p>
-                        </div>
-                    </div>
-
-                    <div class="flex justify-between items-center">
-                        <p class="text-xs text-gray-500 flex items-center gap-1">
-                            <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                            Expires in 2 days
-                        </p>
-                        <button class="btn-primary bg-mulberry text-white px-6 py-2 rounded-lg font-bold text-sm hover:bg-mulberry-dark transition-colors shadow-sm">Accept Contract</button>
-                    </div>
-                </div>
-
-                <!-- Contract 2 -->
-                <div class="glass-card bg-white p-6 rounded-2xl shadow-sm border border-gray-100 hover:border-mulberry/30 transition-colors">
-                    <div class="flex justify-between items-start mb-4">
-                        <div class="flex gap-4 items-center">
-                            <div class="w-12 h-12 rounded-full bg-purple-100 text-purple-600 flex items-center justify-center font-bold text-lg">GE</div>
-                            <div>
-                                <h3 class="font-bold text-gray-900 text-lg">Global Exports Inc.</h3>
-                                <div class="flex items-center gap-2 text-xs text-gray-500 mt-0.5">
-                                    <svg class="w-4 h-4 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                                    Verified Exporter
-                                    <span class="text-gray-300">•</span>
-                                    Bengaluru
-                                </div>
-                            </div>
-                        </div>
-                        <div class="text-right">
-                            <span class="text-2xl font-extrabold text-green-600">₹4,250<span class="text-sm text-gray-500 font-medium">/kg</span></span>
-                            <p class="text-xs font-bold text-gray-400 uppercase mt-1">Target Price</p>
-                        </div>
-                    </div>
-                    
-                    <div class="grid grid-cols-3 gap-4 mb-6 p-4 bg-gray-50 rounded-xl border border-gray-100">
-                        <div>
-                            <p class="text-xs font-bold text-gray-400 uppercase mb-1">Requirement</p>
-                            <p class="font-bold text-gray-800">Raw Silk Yarn</p>
-                        </div>
-                        <div>
-                            <p class="text-xs font-bold text-gray-400 uppercase mb-1">Volume Needed</p>
-                            <p class="font-bold text-gray-800">500 kg</p>
-                        </div>
-                        <div>
-                            <p class="text-xs font-bold text-gray-400 uppercase mb-1">Spec</p>
-                            <p class="font-bold text-silkgold">20/22 Denier</p>
-                        </div>
-                    </div>
-
-                    <div class="flex justify-between items-center">
-                        <p class="text-xs text-gray-500 flex items-center gap-1">
-                            <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                            Expires in 5 hrs
-                        </p>
-                        <button class="btn-primary bg-mulberry text-white px-6 py-2 rounded-lg font-bold text-sm hover:bg-mulberry-dark transition-colors shadow-sm">Accept Contract</button>
-                    </div>
-                </div>
-
-                <!-- Contract 3 -->
-                <div class="glass-card bg-white p-6 rounded-2xl shadow-sm border border-gray-100 hover:border-mulberry/30 transition-colors">
-                    <div class="flex justify-between items-start mb-4">
-                        <div class="flex gap-4 items-center">
-                            <div class="w-12 h-12 rounded-full bg-orange-100 text-orange-600 flex items-center justify-center font-bold text-lg">TW</div>
-                            <div>
-                                <h3 class="font-bold text-gray-900 text-lg">Traditional Weavers Coop</h3>
-                                <div class="flex items-center gap-2 text-xs text-gray-500 mt-0.5">
-                                    <svg class="w-4 h-4 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                                    Verified Weaver
-                                    <span class="text-gray-300">•</span>
-                                    Kanchipuram
-                                </div>
-                            </div>
-                        </div>
-                        <div class="text-right">
-                            <span class="text-2xl font-extrabold text-green-600">₹395<span class="text-sm text-gray-500 font-medium">/kg</span></span>
-                            <p class="text-xs font-bold text-gray-400 uppercase mt-1">Target Price</p>
-                        </div>
-                    </div>
-                    
-                    <div class="grid grid-cols-3 gap-4 mb-6 p-4 bg-gray-50 rounded-xl border border-gray-100">
-                        <div>
-                            <p class="text-xs font-bold text-gray-400 uppercase mb-1">Requirement</p>
-                            <p class="font-bold text-gray-800">Crossbreed Cocoons</p>
-                        </div>
-                        <div>
-                            <p class="text-xs font-bold text-gray-400 uppercase mb-1">Volume Needed</p>
-                            <p class="font-bold text-gray-800">3,000 kg</p>
-                        </div>
-                        <div>
-                            <p class="text-xs font-bold text-gray-400 uppercase mb-1">Grade</p>
-                            <p class="font-bold text-gray-800">Standard</p>
-                        </div>
-                    </div>
-
-                    <div class="flex justify-between items-center">
-                        <p class="text-xs text-gray-500 flex items-center gap-1">
-                            <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                            Expires in 4 days
-                        </p>
-                        <button class="btn-primary bg-mulberry text-white px-6 py-2 rounded-lg font-bold text-sm hover:bg-mulberry-dark transition-colors shadow-sm">Accept Contract</button>
-                    </div>
-                </div>
-
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6" id="marketPricesContainer">
+                <!-- Price Cards will be injected here by JS -->
             </div>
         </div>
+
+        <script>
+            const marketData = {
+                ramanagara: [
+                    { name: "Bivoltine A-Grade", price: "₹485", trend: "+12", trendColor: "text-green-500", icon: "M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" },
+                    { name: "Crossbreed", price: "₹390", trend: "+5", trendColor: "text-green-500", icon: "M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" },
+                    { name: "Multivoltine", price: "₹320", trend: "-8", trendColor: "text-red-500", icon: "M13 17h8m0 0v-8m0 8l-8-8-4 4-6-6" },
+                    { name: "Raw Silk", price: "₹4,100", trend: "0", trendColor: "text-gray-500", icon: "M5 12h14" }
+                ],
+                sidlaghatta: [
+                    { name: "Bivoltine A-Grade", price: "₹495", trend: "+15", trendColor: "text-green-500", icon: "M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" },
+                    { name: "Crossbreed", price: "₹405", trend: "+10", trendColor: "text-green-500", icon: "M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" },
+                    { name: "Multivoltine", price: "₹335", trend: "-2", trendColor: "text-red-500", icon: "M13 17h8m0 0v-8m0 8l-8-8-4 4-6-6" },
+                    { name: "Raw Silk", price: "₹4,200", trend: "0", trendColor: "text-gray-500", icon: "M5 12h14" }
+                ],
+                kolar: [
+                    { name: "Bivoltine A-Grade", price: "₹475", trend: "-5", trendColor: "text-red-500", icon: "M13 17h8m0 0v-8m0 8l-8-8-4 4-6-6" },
+                    { name: "Crossbreed", price: "₹385", trend: "+2", trendColor: "text-green-500", icon: "M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" },
+                    { name: "Multivoltine", price: "₹315", trend: "0", trendColor: "text-gray-500", icon: "M5 12h14" },
+                    { name: "Raw Silk", price: "₹4,050", trend: "+50", trendColor: "text-green-500", icon: "M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" }
+                ]
+            };
+
+            function updateMarketPrices() {
+                const market = document.getElementById('marketSelector').value;
+                const data = marketData[market];
+                const container = document.getElementById('marketPricesContainer');
+                
+                container.innerHTML = data.map(item => `
+                    <div class="bg-gray-50 p-6 rounded-xl border border-gray-100 hover:border-mulberry/30 transition-all">
+                        <p class="text-sm font-bold text-gray-500 uppercase mb-2" data-translate="${item.name}">${item.name}</p>
+                        <div class="flex items-end justify-between">
+                            <h3 class="text-3xl font-extrabold text-gray-900">${item.price}<span class="text-sm text-gray-500 font-medium">/kg</span></h3>
+                            <div class="flex items-center gap-1 ${item.trendColor} font-bold text-sm bg-white px-2 py-1 rounded-md shadow-sm">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="${item.icon}"></path></svg>
+                                ${item.trend}
+                            </div>
+                        </div>
+                    </div>
+                `).join('');
+
+                if (window.applyTranslations) {
+                    window.applyTranslations();
+                }
+            }
+
+            // Initialize
+            document.addEventListener('DOMContentLoaded', () => {
+                updateMarketPrices();
+            });
+        </script>
 
     </main>
 </body>

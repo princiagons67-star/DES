@@ -98,7 +98,15 @@ const translationData = {
     "Personal Details": "ವೈಯಕ್ತಿಕ ವಿವರಗಳು",
     "Save Changes": "ಬದಲಾವಣೆಗಳನ್ನು ಉಳಿಸಿ",
     "Cancel": "ರದ್ದುಮಾಡಿ",
-    "Edit Profile & Preferences": "ಪ್ರೊಫೈಲ್ ಮತ್ತು ಆದ್ಯತೆಗಳನ್ನು ಸಂಪಾದಿಸಿ"
+    "Edit Profile & Preferences": "ಪ್ರೊಫೈಲ್ ಮತ್ತು ಆದ್ಯತೆಗಳನ್ನು ಸಂಪಾದಿಸಿ",
+    "Soil Temp": "ಮಣ್ಣಿನ ತಾಪಮಾನ",
+    "Stable": "ಸ್ಥಿರ",
+    "Soil Moisture": "ಮಣ್ಣಿನ ತೇವಾಂಶ",
+    "Optimal level": "ಸೂಕ್ತ ಮಟ್ಟ",
+    "Silk Market Price Chart": "ರೇಷ್ಮೆ ಮಾರುಕಟ್ಟೆ ಬೆಲೆ ಪಟ್ಟಿ",
+    "Price variation over the last week": "ಕಳೆದ ವಾರದಲ್ಲಿ ಬೆಲೆ ಬದಲಾವಣೆ",
+    "This Week": "ಈ ವಾರ",
+    "Last Week": "ಕಳೆದ ವಾರ"
 };
 
 function translateDOM(node) {
