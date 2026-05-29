@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ESP32 Plant Monitor</title>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg:      #0d1117;
+      --surface: #161b22;
+      --card:    #1c2128;
+      --border:  rgba(255,255,255,0.08);
+      --text:    #e6edf3;
+      --muted:   #7d8590;
+      --green:   #3fb950;
+      --yellow:  #d29922;
+      --red:     #f85149;
+      --blue:    #58a6ff;
+      --teal:    #39d353;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Space Grotesk', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      padding: 32px 24px;
+    }
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 32px;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .logo-icon {
+      width: 40px; height: 40px;
+      background: linear-gradient(135deg, #1a3a2a, #2d6a4f);
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 20px;
+    }
+    h1 { font-size: 1.25rem; font-weight: 700; letter-spacing: -0.3px; }
+    .subtitle { font-size: 0.75rem; color: var(--muted); margin-top: 2px; }
+    .connection-row {
+      display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+    }
+    #ip-input {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13px;
+      padding: 8px 12px;
+      width: 200px;
+      outline: none;
+    }
+    #ip-input:focus { border-color: var(--blue); }
+    .btn {
+      background: var(--blue);
+      color: #0d1117;
+      border: none;
+      border-radius: 8px;
+      padding: 8px 16px;
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 600;
+      font-size: 13px;
+      cursor: pointer;
+      transition: opacity 0.15s;
+    }
+    .btn:hover { opacity: 0.85; }
+    .btn.danger { background: var(--red); }
+    .btn.ghost {
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--text);
+    }
+    .dot {
+      width: 8px; height: 8px; border-radius: 50%;
+      background: var(--muted);
+      display: inline-block;
+      transition: background 0.3s;
+    }
+    .dot.live { background: var(--green); box-shadow: 0 0 6px var(--green); animation: pulse 2s infinite; }
+    .dot.error { background: var(--red); }
+    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.5} }
+    #status-text { font-size: 13px; color: var(--muted); }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 20px 22px;
+      position: relative;
+      overflow: hidden;
+    }
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: var(--accent, transparent);
+      border-radius: 14px 14px 0 0;
+    }
+    .card-label {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: var(--muted);
+      font-weight: 500;
+      margin-bottom: 14px;
+    }
+    .card-value {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 2.8rem;
+      font-weight: 600;
+      color: var(--text);
+      line-height: 1;
+    }
+    .card-unit { font-size: 1.1rem; color: var(--muted); margin-left: 4px; }
+    .badge {
+      display: inline-flex; align-items: center; gap: 5px;
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-top: 10px;
+    }
+    .badge.ok     { background: rgba(63,185,80,0.12);  color: var(--green);  border: 1px solid rgba(63,185,80,0.25); }
+    .badge.warn   { background: rgba(210,153,34,0.12); color: var(--yellow); border: 1px solid rgba(210,153,34,0.25); }
+    .badge.err    { background: rgba(248,81,73,0.12);  color: var(--red);    border: 1px solid rgba(248,81,73,0.25); }
+    .badge.idle   { background: rgba(125,133,144,0.12);color: var(--muted);  border: 1px solid rgba(125,133,144,0.2); }
+
+    .bar-track {
+      width: 100%; height: 6px;
+      background: rgba(255,255,255,0.06);
+      border-radius: 10px; margin-top: 14px; overflow: hidden;
+    }
+    .bar-fill {
+      height: 100%;
+      border-radius: 10px;
+      background: var(--green);
+      transition: width 0.5s ease, background 0.3s;
+    }
+    .range-labels {
+      display: flex; justify-content: space-between;
+      font-size: 10px; color: var(--muted); margin-top: 4px;
+    }
+
+    .chart-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 20px 22px;
+      margin-bottom: 20px;
+    }
+    .chart-header {
+      display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;
+    }
+    .chart-title { font-size: 13px; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: 1.2px; }
+    canvas { width: 100% !important; display: block; }
+
+    .buzzer-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 20px 22px;
+      margin-bottom: 20px;
+      display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px;
+    }
+    .buzzer-info h3 { font-size: 14px; font-weight: 600; }
+    .buzzer-info p  { font-size: 12px; color: var(--muted); margin-top: 4px; }
+    .buzzer-btns { display: flex; gap: 10px; }
+
+    .log-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 20px 22px;
+    }
+    .log-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+    .log-title { font-size: 13px; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: 1.2px; }
+    #log-list {
+      list-style: none;
+      max-height: 180px; overflow-y: auto;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+    }
+    #log-list li {
+      padding: 5px 0;
+      border-bottom: 1px solid var(--border);
+      display: flex; gap: 10px;
+      color: var(--text);
+    }
+    #log-list li:last-child { border-bottom: none; }
+    .log-time { color: var(--muted); min-width: 80px; }
+    .log-msg.alert { color: var(--red); }
+    .log-msg.ok    { color: var(--green); }
+    .log-msg.info  { color: var(--blue); }
+
+    footer {
+      text-align: center;
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 32px;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="logo">
+    <div class="logo-icon">🌿</div>
+    <div>
+      <h1 data-translate="plant-sensor-monitor">Plant Sensor Monitor</h1>
+      <div class="subtitle">ESP32 · DHT22 · Capacitive Soil</div>
+    </div>
+  </div>
+  <div class="connection-row">
+    <span class="dot" id="dot"></span>
+    <span id="status-text" data-translate="disconnected">Disconnected</span>
+    <input id="ip-input" type="text" placeholder="192.168.x.x" value="192.168.1.100">
+    <button class="btn" onclick="connect()" data-translate="connect">Connect</button>
+    <button class="btn ghost" onclick="stopPolling()" data-translate="stop">Stop</button>
+  </div>
+</header>
+
+<div class="grid">
+  <div class="card" style="--accent: #58a6ff">
+    <div class="card-label" data-translate="air-temp">Air Temperature</div>
+    <div class="card-value"><span id="v-temp">--</span><span class="card-unit">°C</span></div>
+    <div id="b-temp" class="badge idle" data-translate="waiting">Waiting</div>
+  </div>
+  <div class="card" style="--accent: #39d353">
+    <div class="card-label" data-translate="air-humidity">Air Humidity</div>
+    <div class="card-value"><span id="v-hum">--</span><span class="card-unit">%</span></div>
+    <div id="b-hum" class="badge idle" data-translate="waiting">Waiting</div>
+  </div>
+  <div class="card" style="--accent: #3fb950">
+    <div class="card-label" data-translate="soil-moisture">Soil Moisture</div>
+    <div class="card-value"><span id="v-soil">--</span><span class="card-unit">%</span></div>
+    <div id="b-soil" class="badge idle" data-translate="waiting">Waiting</div>
+    <div class="bar-track"><div class="bar-fill" id="soil-bar" style="width:0%"></div></div>
+    <div class="range-labels"><span data-translate="dry">Dry</span><span data-translate="ideal-range">Ideal 40–70%</span><span data-translate="wet">Wet</span></div>
+  </div>
+  <div class="card" style="--accent: #d29922">
+    <div class="card-label">DHT22 Sensor</div>
+    <div class="card-value" style="font-size:1.5rem; margin-top:10px" id="v-dht">--</div>
+    <div id="b-dht" class="badge idle" data-translate="waiting">Waiting</div>
+  </div>
+</div>
+
+<div class="buzzer-card">
+  <div class="buzzer-info">
+    <h3 data-translate="buzzer-control">🔔 Buzzer Control</h3>
+    <p data-translate="buzzer-desc">Auto-triggers on alert (3 s). Manual control below.</p>
+  </div>
+  <div class="buzzer-btns">
+    <button class="btn" onclick="sendBuzz('on')" data-translate="turn-on">Turn On</button>
+    <button class="btn danger" onclick="sendBuzz('off')" data-translate="turn-off">Turn Off</button>
+  </div>
+</div>
+
+<div class="chart-card">
+  <div class="chart-header">
+    <span class="chart-title" data-translate="readings-history">Readings History (last 30 pts)</span>
+    <button class="btn ghost" style="font-size:12px;padding:5px 10px" onclick="clearChart()" data-translate="clear">Clear</button>
+  </div>
+  <canvas id="chart" height="160"></canvas>
+</div>
+
+<div class="log-card">
+  <div class="log-header">
+    <span class="log-title" data-translate="event-log">Event Log</span>
+    <button class="btn ghost" style="font-size:12px;padding:5px 10px" onclick="clearLog()" data-translate="clear">Clear</button>
+  </div>
+  <ul id="log-list"><li><span class="log-time">--:--:--</span><span class="log-msg info" data-translate="waiting-conn">Waiting for connection…</span></li></ul>
+</div>
+
+<footer data-translate="plant-footer">Open this file in any browser · Point it at your ESP32's local IP · No install needed</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<script>
+  let pollTimer = null;
+  let espBase   = '';
+  const MAX_PTS = 30;
+
+  const chartData = {
+    labels:   [],
+    temp:     [],
+    humidity: [],
+    soil:     []
+  };
+
+  const ctx = document.getElementById('chart').getContext('2d');
+  const chart = new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels: chartData.labels,
+      datasets: [
+        { label: 'Temp (°C)',     data: chartData.temp,     borderColor: '#58a6ff', backgroundColor: 'rgba(88,166,255,0.07)', tension: 0.4, pointRadius: 2, borderWidth: 1.5 },
+        { label: 'Humidity (%)', data: chartData.humidity, borderColor: '#39d353', backgroundColor: 'rgba(57,211,83,0.07)',  tension: 0.4, pointRadius: 2, borderWidth: 1.5 },
+        { label: 'Soil (%)',     data: chartData.soil,     borderColor: '#d29922', backgroundColor: 'rgba(210,153,34,0.07)', tension: 0.4, pointRadius: 2, borderWidth: 1.5 }
+      ]
+    },
+    options: {
+      responsive: true,
+      animation: false,
+      plugins: {
+        legend: { labels: { color: '#7d8590', font: { family: 'Space Grotesk', size: 12 }, boxWidth: 12 } }
+      },
+      scales: {
+        x: { ticks: { color: '#7d8590', font: { size: 11 }, maxRotation: 0 }, grid: { color: 'rgba(255,255,255,0.04)' } },
+        y: { ticks: { color: '#7d8590', font: { size: 11 } }, grid: { color: 'rgba(255,255,255,0.04)' }, min: 0 }
+      }
+    }
+  });
+
+  function connect() {
+    const ip = document.getElementById('ip-input').value.trim();
+    if (!ip) return;
+    espBase = 'http://' + ip;
+    stopPolling();
+    poll();
+    pollTimer = setInterval(poll, 2000);
+    log('Connecting to ' + espBase + '…', 'info');
+  }
+
+  function stopPolling() {
+    if (pollTimer) { clearInterval(pollTimer); pollTimer = null; }
+    setStatus('idle');
+  }
+
+  async function poll() {
+    if (!espBase) return;
+    try {
+      const res  = await fetch(espBase + '/api/data', { signal: AbortSignal.timeout(3000) });
+      const data = await res.json();
+      update(data);
+      setStatus('live');
+    } catch(e) {
+      setStatus('error');
+      log('Connection failed: ' + e.message, 'alert');
+    }
+  }
+
+  function update(d) {
+    const now = new Date().toLocaleTimeString('en-IN', { hour12: false });
+
+    // Temperature
+    const tempOk = d.dhtOK && d.airTemp !== null;
+    setCard('temp', tempOk ? d.airTemp.toFixed(1) : 'ERR',
+            badge(d.airTemp, 23, 28, d.dhtOK), 'b-temp');
+
+    // Humidity
+    const humOk = d.dhtOK && d.airHumidity !== null;
+    setCard('hum', humOk ? d.airHumidity.toFixed(1) : 'ERR',
+            badge(d.airHumidity, 70, 85, d.dhtOK), 'b-hum');
+
+    // Soil
+    setCard('soil', d.soilMoisture,
+            badge(d.soilMoisture, 40, 70, true), 'b-soil');
+    const bar = document.getElementById('soil-bar');
+    bar.style.width = d.soilMoisture + '%';
+    bar.style.background = d.soilMoisture < 40 ? '#d29922' : d.soilMoisture > 70 ? '#f85149' : '#3fb950';
+
+    // DHT
+    document.getElementById('v-dht').textContent = d.dhtOK ? 'Connected' : 'Error';
+    const bd = document.getElementById('b-dht');
+    bd.textContent = d.dhtOK ? '✓ OK' : '✗ Disconnected';
+    bd.className   = 'badge ' + (d.dhtOK ? 'ok' : 'err');
+
+    // Alerts
+    if (!d.dhtOK)                                   log('DHT22 sensor error!', 'alert');
+    if (d.soilMoisture < 40)                        log('Soil too dry: ' + d.soilMoisture + '%', 'alert');
+    if (d.soilMoisture > 70)                        log('Soil too wet: ' + d.soilMoisture + '%', 'alert');
+    if (d.dhtOK && d.airTemp < 23)                  log('Temp too low: ' + d.airTemp.toFixed(1) + '°C', 'alert');
+    if (d.dhtOK && d.airTemp > 28)                  log('Temp too high: ' + d.airTemp.toFixed(1) + '°C', 'alert');
+
+    // Chart
+    chartData.labels.push(now);
+    chartData.temp.push(d.airTemp !== null ? parseFloat(d.airTemp.toFixed(1)) : null);
+    chartData.humidity.push(d.airHumidity !== null ? parseFloat(d.airHumidity.toFixed(1)) : null);
+    chartData.soil.push(d.soilMoisture);
+    if (chartData.labels.length > MAX_PTS) {
+      chartData.labels.shift(); chartData.temp.shift();
+      chartData.humidity.shift(); chartData.soil.shift();
+    }
+    chart.update();
+  }
+
+  function setCard(id, val, cls, badgeId) {
+    document.getElementById('v-' + id).textContent = val;
+    const b = document.getElementById(badgeId);
+    b.textContent = cls.label;
+    b.className   = 'badge ' + cls.type;
+  }
+
+  function badge(val, min, max, ok) {
+    if (!ok || val === null) return { label: '✗ Error', type: 'err' };
+    if (val < min) return { label: '↓ Low',  type: 'warn' };
+    if (val > max) return { label: '↑ High', type: 'warn' };
+    return { label: '✓ OK', type: 'ok' };
+  }
+
+  function setStatus(state) {
+    const dot  = document.getElementById('dot');
+    const text = document.getElementById('status-text');
+    if (state === 'live')  { dot.className = 'dot live';  text.textContent = 'Live'; }
+    if (state === 'error') { dot.className = 'dot error'; text.textContent = 'Error'; }
+    if (state === 'idle')  { dot.className = 'dot';       text.textContent = 'Stopped'; }
+  }
+
+  async function sendBuzz(state) {
+    if (!espBase) { log('Not connected', 'alert'); return; }
+    try {
+      await fetch(espBase + '/buzzer?state=' + state);
+      log('Buzzer manually turned ' + state.toUpperCase(), 'info');
+    } catch(e) { log('Buzzer command failed', 'alert'); }
+  }
+
+  const loggedMessages = new Set();
+  function log(msg, type) {
+    const key = msg + '_' + Math.floor(Date.now() / 5000);
+    if (loggedMessages.has(key)) return;
+    loggedMessages.add(key);
+
+    const list = document.getElementById('log-list');
+    if (list.children.length === 1 && list.children[0].querySelector('.log-msg.info')?.textContent.includes('Waiting')) {
+      list.innerHTML = '';
+    }
+    const li = document.createElement('li');
+    const t  = new Date().toLocaleTimeString('en-IN', { hour12: false });
+    li.innerHTML = `<span class="log-time">${t}</span><span class="log-msg ${type}">${msg}</span>`;
+    list.insertBefore(li, list.firstChild);
+    if (list.children.length > 50) list.removeChild(list.lastChild);
+  }
+
+  function clearChart() {
+    chartData.labels.length = 0;
+    chartData.temp.length   = 0;
+    chartData.humidity.length = 0;
+    chartData.soil.length   = 0;
+    chart.update();
+  }
+
+  function clearLog() {
+    document.getElementById('log-list').innerHTML =
+      '<li><span class="log-time">--:--:--</span><span class="log-msg info" data-translate="log-cleared">Log cleared</span></li>';
+    loggedMessages.clear();
+  }
+</script>
+</body>
+</html>
