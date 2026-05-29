@@ -117,7 +117,7 @@ function translateDOM(node) {
             if (node.originalText === undefined) {
                 node.originalText = node.nodeValue;
             }
-            
+
             let trimmedOriginal = node.originalText.trim();
             if (currentLanguage === 'kn' && translationData[trimmedOriginal]) {
                 node.nodeValue = node.originalText.replace(trimmedOriginal, translationData[trimmedOriginal]);
@@ -140,18 +140,18 @@ function translateDOM(node) {
                     node.setAttribute('placeholder', node.originalPlaceholder);
                 }
             }
-            
+
             // Translate value of inputs of type button or submit
             if (tag === 'input' && (node.type === 'button' || node.type === 'submit')) {
-                 if (node.originalValue === undefined) {
-                     node.originalValue = node.value;
-                 }
-                 let original = node.originalValue.trim();
-                 if (currentLanguage === 'kn' && translationData[original]) {
-                     node.value = translationData[original];
-                 } else if (currentLanguage === 'en') {
-                     node.value = node.originalValue;
-                 }
+                if (node.originalValue === undefined) {
+                    node.originalValue = node.value;
+                }
+                let original = node.originalValue.trim();
+                if (currentLanguage === 'kn' && translationData[original]) {
+                    node.value = translationData[original];
+                } else if (currentLanguage === 'en') {
+                    node.value = node.originalValue;
+                }
             }
 
             // Iterate over child nodes
@@ -164,7 +164,7 @@ function translateDOM(node) {
 
 function applyTranslation() {
     translateDOM(document.body);
-    
+
     // Update active radio in settings if present
     const knRadio = document.querySelector('input[value="kn"]');
     const enRadio = document.querySelector('input[value="en"]');
@@ -209,7 +209,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const excludedPages = ['index.html', 'farmer-home.html', 'farmer-login.html', 'create-account.html', 'farmer-create-account.html', ''];
     const currentPath = window.location.pathname;
     const currentPage = currentPath.split('/').pop();
-    
+
     if (!excludedPages.includes(currentPage) && !currentPage.startsWith('index')) {
         const backBtn = document.createElement('a');
         // If there is history, go back. Otherwise go to dashboard.
@@ -229,7 +229,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 </svg>
             </div>
         `;
-        
+
         // Add hover effects
         const btnInner = backBtn.firstElementChild;
         backBtn.addEventListener('mouseenter', () => {
@@ -240,7 +240,7 @@ document.addEventListener("DOMContentLoaded", () => {
             btnInner.style.transform = 'translateY(0)';
             btnInner.style.boxShadow = '0 8px 24px rgba(87, 99, 65, 0.4)';
         });
-        
+
         document.body.appendChild(backBtn);
     }
 
@@ -269,7 +269,7 @@ document.addEventListener("DOMContentLoaded", () => {
     langToggle.style.zIndex = '9998';
     langToggle.style.cursor = 'pointer';
     langToggle.style.transition = 'all 0.3s cubic-bezier(0.16, 1, 0.3, 1)';
-    
+
     function updateLangButtonDisplay() {
         const isKn = currentLanguage === 'kn';
         langToggle.innerHTML = `
@@ -281,7 +281,7 @@ document.addEventListener("DOMContentLoaded", () => {
             </div>
         `;
     }
-    
+
     updateLangButtonDisplay();
 
     langToggle.addEventListener('click', () => {
@@ -309,7 +309,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // --- Global Footer Injection ---
     const pathName = window.location.pathname;
     const pageName = pathName.split('/').pop();
-    
+
     if (pageName === 'index.html' || pageName === 'forgot-password.html' || pageName === 'create-account.html' || pageName === '') {
         // Minimalist footer centered at the bottom of the screen
         const footer = document.createElement('div');
@@ -333,12 +333,12 @@ document.addEventListener("DOMContentLoaded", () => {
     } else {
         // Dashboard pages footer injection
         const injectFooter = () => {
-            const contentContainer = document.querySelector('main > div.max-w-7xl') || 
-                                     document.querySelector('main > div.p-8') || 
-                                     document.querySelector('.max-w-3xl') || 
-                                     document.querySelector('main') || 
-                                     document.body;
-            
+            const contentContainer = document.querySelector('main > div.max-w-7xl') ||
+                document.querySelector('main > div.p-8') ||
+                document.querySelector('.max-w-3xl') ||
+                document.querySelector('main') ||
+                document.body;
+
             if (contentContainer && !document.getElementById('global-dashboard-footer')) {
                 const footer = document.createElement('footer');
                 footer.id = 'global-dashboard-footer';
@@ -355,7 +355,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 footer.style.fontSize = '12px';
                 footer.style.fontFamily = "'Manrope', sans-serif";
                 footer.style.fontWeight = '600';
-                
+
                 footer.innerHTML = `
                     <div>
                         © ${new Date().getFullYear()} <span style="color: #576341; font-weight: 700;">TechTitans</span>. All rights reserved.
@@ -368,7 +368,7 @@ document.addEventListener("DOMContentLoaded", () => {
                         <a href="mailto:techtitans@gmail.com" style="color: #576341; text-decoration: none; font-weight: 700; transition: color 0.2s;" onmouseover="this.style.color='#d4af37'" onmouseout="this.style.color='#576341'">techtitans@gmail.com</a>
                     </div>
                 `;
-                
+
                 contentContainer.appendChild(footer);
             }
         };
@@ -388,7 +388,7 @@ document.addEventListener("DOMContentLoaded", () => {
         wrapper.className = 'relative inline-block';
         parent.insertBefore(wrapper, bellBtn);
         wrapper.appendChild(bellBtn);
-        
+
         // Setup Badge ID
         let badge = bellBtn.querySelector('span');
         if (badge) {
@@ -400,7 +400,7 @@ document.addEventListener("DOMContentLoaded", () => {
             badge.className = 'absolute top-2 right-2 w-2.5 h-2.5 bg-red-500 rounded-full border-2 border-white animate-pulse';
             bellBtn.appendChild(badge);
         }
-        
+
         // Inject the universal dropdown
         const dropdown = document.createElement('div');
         dropdown.id = 'global-notification-dropdown';
@@ -414,7 +414,7 @@ document.addEventListener("DOMContentLoaded", () => {
         dropdown.style.position = 'absolute';
         dropdown.style.display = 'none';
         dropdown.style.zIndex = '9999';
-        
+
         dropdown.innerHTML = `
             <div style="padding: 1rem; border-bottom: 1px solid #f3f4f6; display: flex; justify-content: space-between; align-items: center; background-color: #f9fafb; border-top-left-radius: 1rem; border-top-right-radius: 1rem;">
                 <span style="font-weight: 800; font-size: 14px; color: #3c4727; font-family: 'Manrope', sans-serif;">Ecosystem Alerts</span>
@@ -427,41 +427,41 @@ document.addEventListener("DOMContentLoaded", () => {
                 <button id="global-close-notif-btn" style="background: none; border: none; font-size: 12px; font-weight: 700; color: #576341; cursor: pointer; font-family: 'Manrope', sans-serif;">Close Alarms</button>
             </div>
         `;
-        
+
         wrapper.appendChild(dropdown);
-        
+
         // Click to toggle
         bellBtn.addEventListener('click', (e) => {
             e.stopPropagation();
             const isHidden = dropdown.style.display === 'none' || dropdown.style.display === '';
             dropdown.style.display = isHidden ? 'block' : 'none';
         });
-        
+
         document.addEventListener('click', () => {
             dropdown.style.display = 'none';
         });
-        
+
         dropdown.addEventListener('click', (e) => {
             e.stopPropagation();
         });
-        
+
         const closeBtn = dropdown.querySelector('#global-close-notif-btn');
         if (closeBtn) {
             closeBtn.addEventListener('click', () => {
                 dropdown.style.display = 'none';
             });
         }
-        
+
         // Function to update global notifications content
-        window.updateGlobalNotifications = function(activeAlerts) {
+        window.updateGlobalNotifications = function (activeAlerts) {
             const list = dropdown.querySelector('#global-alert-list');
             const count = dropdown.querySelector('#global-alert-count');
-            
+
             if (activeAlerts && activeAlerts.length > 0) {
                 badge.style.display = 'block';
                 count.style.display = 'inline-block';
                 count.textContent = `${activeAlerts.length} Active`;
-                
+
                 list.innerHTML = '';
                 activeAlerts.forEach(message => {
                     const item = document.createElement('div');
@@ -476,7 +476,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     item.style.color = '#991b1b';
                     item.style.fontFamily = "'Manrope', sans-serif";
                     item.style.textAlign = 'left';
-                    
+
                     item.innerHTML = `
                         <span style="font-size: 14px; margin-top: 1px;">⚠️</span>
                         <div style="text-align: left;">${message}</div>
@@ -495,7 +495,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 `;
             }
         };
-        
+
         // Seed default alerts on pages other than smart-farm.html to make it feel alive!
         const currentURL = window.location.pathname;
         if (!currentURL.includes('smart-farm.html')) {
